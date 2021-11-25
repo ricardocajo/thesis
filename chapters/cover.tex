@@ -1,0 +1,90 @@
+% !TeX root = ../main.tex
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%% Cover: No need to change anything here %%%%%%%%%%%%%%%%%% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+
+% Sets the new page geometry
+\newgeometry{
+    left=3cm,
+    right=3cm,
+    top=1cm,
+    bottom=0.4cm
+}
+
+% Set the cover font to Arial Narrow
+{\coverfont
+
+% Center the page text
+\begin{center}
+
+% Universidade de Lisboa, Faculdade de Ciências, Departamento de Informática
+{\large 
+UNIVERSIDADE DE LISBOA
+\vspace{8.0pt}
+
+FACULDADE DE CIÊNCIAS
+\vspace{8.0pt}
+
+DEPARTAMENTO DE \departmentname
+\vspace{8.0pt}
+}
+
+\vspace{46pt}
+
+% Ciências ULisboa Logo
+\includegraphics{images/logotipo.png}
+
+\vspace{117pt}
+
+% Title of the thesis
+{\fontsize{17}{19.55}\coverfont\textbf{\thesisname}}
+
+\vspace{110pt}
+
+% The student name
+{\fontsize{15}{17.25}\coverfont\studentname}
+
+\vspace{74pt}
+
+% Designação do curso e especialidade
+{\fontsize{13}{14.95}\coverfont\textbf{Mestrado em {\coursename}}
+
+\vspace{0.65pt}
+
+\specname
+}
+
+\vspace{22pt}
+
+% Versão Provisória
+{\fontsize{11}{12.65}\coverfont\versaoprovisoria}
+
+\vspace{27pt}
+
+% Supervisors
+{\fontsize{13}{14.95}\coverfont
+{\thesistype} orientad\ifthenelse{\equal{\thesistype}{Dissertação}}{a}{o} por: 
+
+\firstadvisor
+
+\vspace{3pt}
+
+\secondadvisor
+
+\vspace{3pt}
+
+\thirdadvisor
+}
+
+~
+\vfill
+
+% Year the work was done
+{\Large\the\year{}}
+
+\end{center}
+}
+
+% Restore the page geometry
+\restoregeometry

@@ -1,0 +1,93 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Important packages
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{csquotes}
+\usepackage{makeidx}
+
+% Packages for the cover
+\usepackage{fontspec}
+\newfontfamily{\coverfont}{arial-narrow}
+    [Path = ./assets/, 
+    Extension = .ttf, 
+    UprightFont = *-regular,
+    BoldFont = *-bold
+    ]
+\usepackage{anyfontsize}
+\usepackage{afterpage}
+
+\usepackage{changepage}
+
+% Positioning
+\usepackage{float}
+
+% Page format
+\usepackage[dvips]{geometry}
+\geometry{
+    a4paper=true,
+    portrait=true,
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Other required packages
+
+% Bibliography
+\bibliographystyle{plainnat}
+\usepackage[numbers]{natbib}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amssymb} 
+\usepackage{amsthm}
+
+% Images
+\usepackage{color}
+\usepackage[table, xcdraw,dvipsnames]{xcolor}
+
+% Code listings
+\usepackage{caption} 
+\usepackage{listings}
+
+% Text and pdf
+\usepackage{pdfpages}
+\usepackage{xspace}
+\usepackage[shortlabels]{enumitem}
+
+% Links
+\usepackage[colorlinks=true, citecolor=Blue]{hyperref}
+\usepackage[all]{hypcap}
+\usepackage{cleveref}
+
+
+% Generated the pdf with information
+\hypersetup{
+    pdfauthor={\studentname},                                       
+    pdftitle={\thesisname},                                         
+    pdfsubject={\thesistype in \coursename},                        
+    pdfkeywords={Keyword1, Keyword2, Keyword3, Keyword4}                 % TODO
+}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Other packages
+
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Auxiliary commands
+\newcommand{\cleanpage}{\newpage\mbox{}\thispagestyle{empty}\newpage}
+
+\newcommand{\startpagecounter}[1]{\setcounter{page}{1}\pagenumbering{#1}}
+
+% Commands for TODOS
+\newcommand{\nb}[2]{\fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize#1}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}
+\newcommand\todo[1]{\nb{Todo}{#1}}
+
+\newcommand{\missref}{\fcolorbox{gray}{red}{\bfseries\sffamily\scriptsize\textcolor{white}{REF}}}
+
