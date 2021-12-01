@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.8) (preloaded format=xelatex 2021.11.25)  25 NOV 2021 17:50
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.8) (preloaded format=xelatex 2021.11.25)  1 DEC 2021 08:42
 entering extended mode
 **c:/Users/Cajoo/Documents/GitHub/thesis/main.tex
 (c:/Users/Cajoo/Documents/GitHub/thesis/main.tex
@@ -851,9 +851,20 @@ Chapter 1.
 [1
 
 ]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 58.
 File: images/intro_diag.png Graphic file (type bmp)
 <images/intro_diag.png>
- [2]) (chapters/background.tex [3] [4
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+Overfull \hbox (1.04248pt too wide) in paragraph at lines 92--93
+[]\TU/lmr/m/n/10.95 Alcides Miguel Cachulo Aguiar FonsecaAqui pretendem-se cois
+as mais concretas: 1. Definição
+ []
+
+) (chapters/background.tex [3] [4
 
 ]
 Chapter 2.
@@ -870,12 +881,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 89C63AA6932416801B90CC2B750B4128;1498.
  ) 
 Here is how much of TeX's memory you used:
- 19993 strings out of 411295
- 358606 string characters out of 2838980
- 800322 words of memory out of 3000000
- 40102 multiletter control sequences out of 15000+600000
- 408630 words of font info for 70 fonts, out of 8000000 for 9000
+ 20025 strings out of 411295
+ 359294 string characters out of 2838980
+ 801285 words of memory out of 3000000
+ 40119 multiletter control sequences out of 15000+600000
+ 410393 words of font info for 86 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 78i,5n,84p,2103b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 78i,6n,84p,2103b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on main.pdf (29 pages).
