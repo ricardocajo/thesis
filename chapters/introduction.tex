@@ -67,22 +67,27 @@ This work has the objective of showing the potencial of automatic
 tests in robotics and of simplifying their execution.
 With this in mind, the proposal is to create a mechanism that can be able 
 to monitor certain components of the robot during or after a test execution.
+These components aren't arbitrary but defined by the help of a descriptive high-level language.
+The objective of the language is to describe a robot property in a simple and intuitive way.
+This language will need to be supported by a compiler. 
+The compiler should translate the language to a monitoring mechanism.
+In this way, if a robot doesn't follow the properties defined by the language 
+during a test, the compiler will infer that the robot behavior isn't correct.
 
-\alcides{Queres arbitrários em vez de aleatórios. Acho que devias começar com o desenho de uma linguagem 
-de alto nível para especificação de propriedades de sistemas robóticos. Depois um compilador que traduzia essa 
-linguagem num mecanismo de monitorização. Mas a linguagem devia ser o ponto inicial. Acho que falar do GZScenic ainda não é relevante aqui.}
+\par
 
+The Robot Operating System (ROS) is a collection of libraries and tools that help 
+build robot software. ROS is the most widely used tool for writing robot software.
+Robot simulation is an essential tool for testing. Gazebo offers the ability 
+to simulate populations of robots in complex environments.
+This being said, the final scheme of the tool that will accomplish the objective 
+should look something like the below image.
 
-
-Estes componentes do robô não serão aleatórios mas sim definidos com a ajuda de uma nova linguagem de 
-alto nível, o objectivo é conseguir-se descrever as propriedades do robô com ajuda desta linguagem, 
-deste modo se o robô não seguir as propriedades definidas durante um teste o seu comportamento não será 
-correcto. Será também preciso criar cenários de teste específicos e aleatórios para o robô de uma forma 
-automática, já existindo uma linguagem para este efeito (GzScenic)~\cite{GzScenic} pode-se tirar partido 
-da mesma.
-\includegraphics{images/intro_diag.png}
-\alcides{A imagem devia estar como uma figura. A parte do GzScenic ainda não é relevante. Falta uma legenda dos vários tipos de componentes da imagem.}
-\alcides{Neste ponto ainda não apresentaste o ROS. Acho relevante dar uma pequena introdução ao que é, para se perceber aqui o esquema.}
+\begin{figure}[h!]
+    \includegraphics{images/intro_diag.png}
+    \caption{Tool for monitoring robot properties.}
+    \label{fig:intro_objectives}
+\end{figure}
 
 \section{Contributions}
 \label{sec:contributions}
