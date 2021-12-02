@@ -63,13 +63,17 @@ The resulting product is a lack of quality in the software across projects~\cite
 \section{Objectives}
 \label{sec:objectives}
 
-\alcides{A primeira frase tem de ser reescrita. Não facilitas developers, mas facilitas a criação de testes automáticos.}
-Este trabalho tem como objectivo dar a mostrar o potencial de testes automáticos em robótica e facilitar 
-developers do ramo na realização de testes nos seus robôs. Para atingir este objectivo propõe-se criar 
-um mecanismo de monitorização de certos componentes do robô durante e/ou após a execução de um teste. 
+This work has the objective of showing the potencial of automatic 
+tests in robotics and of simplifying their execution.
+With this in mind, the proposal is to create a mechanism that can be able 
+to monitor certain components of the robot during or after a test execution.
+
+\alcides{Queres arbitrários em vez de aleatórios. Acho que devias começar com o desenho de uma linguagem 
+de alto nível para especificação de propriedades de sistemas robóticos. Depois um compilador que traduzia essa 
+linguagem num mecanismo de monitorização. Mas a linguagem devia ser o ponto inicial. Acho que falar do GZScenic ainda não é relevante aqui.}
 
 
-\alcides{Queres arbitrários em vez de aleatórios. Acho que devias começar com o desenho de uma linguagem de alto nível para especificação de propriedades de sistemas robóticos. Depois um compilador que traduzia essa linguagem num mecanismo de monitorização. Mas a linguagem devia ser o ponto inicial. Acho que falar do GZScenic ainda não é relevante aqui.}
+
 Estes componentes do robô não serão aleatórios mas sim definidos com a ajuda de uma nova linguagem de 
 alto nível, o objectivo é conseguir-se descrever as propriedades do robô com ajuda desta linguagem, 
 deste modo se o robô não seguir as propriedades definidas durante um teste o seu comportamento não será 
@@ -85,12 +89,11 @@ da mesma.
 
 The expected contributions of this thesis are below enumerated.
 
-Alterar a prespectiva da utilização de testes automáticos na área da robótica.
-
-Criar uma ferramenta simples de usar que permite realizar testes automáticos na área da robótica.
-
-
-\alcides{Aqui pretendem-se coisas mais concretas: 1. Definição de uma linguagem de alto nível para especificação de propriedades de robots. Depois um compilador dessa linguagem para monitorização. Depois uma avaliação da capacidade desta solução modelar vários problemas relevantes na robótica.}
+\begin{enumerate}
+    \item Definition of a descriptive high-level language to specify robots properties.
+    \item A compiler for the language that can be used for monitoring.
+    \item After evaluating the capability of the solution. Model multiple relevant problems in robotics.
+\end{enumerate}
 
 % ------------------------------------------------------------------------------
 % Structure of the document
