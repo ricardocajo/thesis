@@ -31,13 +31,16 @@ As a result, the notion that a task or movement is correct is really hard for a 
 
 \par
 
-\alcides{Falas em testes automáticos, mas deverias primeiro identificar soluções para evitar isto. Introduzir primeiro testes, depois testes automáticos.}
+The current practices on testing robot software are more or less similar around developers.
+Field testing, simulation testing, logs checking, among others.
+The common denominator among these is that they require a human to analyze the behavior.
+The developer needs to watch the robot in action and interpret if the behavior is correct.
+If there were a tool that could interpret that the behavior of a robot is or isn't correct, 
+there would be no need for human supervising at this level.
+No human supervision would mean automatic tests could be easily achieved for robot software.
+Currently, automatic tests are hardly used. Opening this door would mean an improvement 
+in the quality of current and future robot software.
 
-Consequentemente testes 
-automáticos são difíceis de realizar nesta área, de facto atualmente a grande maioria dos testes 
-realizados em robôs necessitam de supervisionamento humano seja o teste feito no mundo real ou numa 
-simulação, identifica-se assim que existe um espaço para melhoramento na área de testes para robôs 
-através de testes automáticos optimizados com o objectivo de melhorar a qualidade destes sistemas.
 
 \section{Problem Statement}
 \label{sec:problem}
@@ -56,7 +59,8 @@ This is because identifying if a robot fulfills an expected
 behavior is really hard for the robot itself.
 For this reason, automatic tests in the robotics field are 
 hardly reliable and hard to implement.
-The resulting product is a lack of quality in the software across projects~\cite{TestRob}.
+The resulting product is a lack of quality in the software 
+across projects~\cite{TestRob}.
 
 % ------------------------------------------------------------------------------
 % Objectives
