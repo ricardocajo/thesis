@@ -4,17 +4,17 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-Be it a robot arm in a car assembly line or a cat-like robot to carry you food 
-in a restaurant, robotics already have a great impact on our current society. 
-Due to their broad practicality the quality of software 
+Be it a robot arm in a car assembly line, your vacuum cleaner, or a cat-like robot to carry 
+your food in a restaurant, robotics already have a great impact on our current society. 
+Due to their broad practicality, the quality of software 
 used by robots should be of extreme importance for us.
 Robot software as well as the techniques used to test their quality are very 
 field-specific and different from the techniques employed in traditional Software Engineering.
 Automatic tests are barely used in robotics due to multiple factors:
 cost, complexity, hardware integration, among others~\cite{TestRob}.
 The goal of this thesis is to overcome the challenges of automated 
-testing in robotics, by providing developers with an usable alternative 
-that allows to detect bugs with less effort through simulation.
+testing in robotics, by providing developers with a usable alternative 
+that allows detecting bugs with less effort through simulation.
 
 
 % ------------------------------------------------------------------------------
@@ -48,22 +48,22 @@ quality of current and future robot software.
 \section{Problem Statement}
 \label{sec:problem}
 
-The multiple challenges in robot testing influence planning 
+The multiple challenges in robot testing have an influence on planning 
 how to test a robot because there are tradeoffs among choices.
 While simulation-based tests are a promising approach for automation 
 there is still distrust in the precision and validity of the results.
 This means that, despite being dangerous and sometimes expensive, 
 real-life robot testing is still the main choice.
-Both in real-world testing or in simulations, 
+Both in real-world testing or simulations, 
 human supervising will most likely still be necessary.
 This is because identifying if a robot fulfills an expected 
-behavior is really hard for the robot itself.
+behavior is very hard for the robot itself.
 For this reason, automatic tests in the robotics field are 
 hardly reliable and hard to implement.
 The resulting product is a lack of quality in the software 
 across projects.
-In short, is manually costly to identify test scenarios 
-and identify if the robot does what we want.
+In short, right now in the field is manually costly to identify 
+test scenarios and identify if the robot does what we want.
 
 
 % ------------------------------------------------------------------------------
@@ -71,40 +71,28 @@ and identify if the robot does what we want.
 \section{Objectives}
 \label{sec:objectives}
 
-This work has the objective of showing the potencial of automatic 
+This work has the objective of showing the potential of automatic 
 tests in robotics and of simplifying their execution.
-
-\todo{A linha desta secção perde-me.}
-
-\todo{Propomos que os developers descrevam o cenário a testar usando uma linguagem de alto nível.}
-\todo{A partir da descrição dessa linguagem, iremos detectar e instrumentar os componentes do robot relevantes.}
-\todo{A monitorização da execução ou, em alternativa, uma análise aos logs do robot irão detectar desvios ao comportamento normal do robot. }
-
-
-With this in mind, we propose a mechanism that monitors a subset of the components of the robot during or after a test execution.
-These components aren't arbitrary but defined by the help of a descriptive high-level language.
-The objective of the language is to describe a robot property in a simple and intuitive way.
+With this in mind, we propose a mechanism that monitors a subset of 
+the components of the robot during or after tests execution.
+These components aren't arbitrary but are defined with the help of a descriptive high-level language.
+Not only the components but the test scenario should be described in this language.
+With the description of this language, one should be able to detect and 
+orchestrate relevant robot components associated with the testing scenario.
+The language should allow describing a robot property in a simple and intuitive way.
 This language will need to be supported by a compiler. 
 The compiler should translate the language to a monitoring mechanism.
-In this way, if a robot doesn't follow the properties defined by the language 
-during a test, the compiler will infer that the robot behavior isn't correct. \todo{Acho que o compilador não vai detectar estas!}
+In this way, if a robot doesn't follow the properties defined by the 
+language, either during execution or a log analysis, the compiler will 
+detect an anomaly in the normal behavior of the robot.
 
-\par
 
-\todo{Este parágrafo não encaixa bem aqui. O ROS deve ir para o capítulo Background e o Gazebo para related work.}
-The Robot Operating System (ROS) is a collection of libraries and tools that help 
-build robot software. ROS is the most widely used tool for writing robot software.
-Robot simulation is an essential tool for testing. Gazebo offers the ability 
-to simulate populations of robots in complex environments.
-This being said, the final scheme of the tool that will accomplish the objective 
-should look something like the below image.
-
-\begin{figure}[h!]
-    \includegraphics{images/intro_diag.png}
-    \caption{Tool for monitoring robot properties.}
-    \label{fig:intro_objectives}
-\end{figure}
-\todo{esta imagem tem de ser melhorada bastante.}
+%Maybe no image here
+%\begin{figure}[h!]
+%    \includegraphics{images/intro_diag.png}
+%    \caption{Tool for monitoring robot properties.}
+%    \label{fig:intro_objectives}
+%\end{figure}
 
 \section{Contributions}
 \label{sec:contributions}
