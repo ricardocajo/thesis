@@ -4,7 +4,8 @@
 
 In this chapter as a background to the work, 
 the Robot Operating System (ROS) is intruduced.
-Has for related work, Gazebo is intruduced as the simulation software to be used.
+Has for related work, Gazebo is intruduced as the simulation software to be used 
+and GzScenic as a language that allows to specify testing scenarios.
 
 \par
 
@@ -14,7 +15,7 @@ ROS runs on Linux Ubuntu and provides an abstraction between hardware and softwa
 ROS was built with the purpose of cross-collaboration, there are
 packages for almost everything and no need to reinvent the wheel.
 ROS is the most widely used tool for writing robot software.
-Companies like Sony, LG, Rapyuta Robotics, etc., rely on ROS to deliver their products.
+Companies like Sony, LG, Rapyuta Robotics, etc., rely on ROS to deliver their products~\cite{Ros}.
 
 \par
 
@@ -23,5 +24,18 @@ Gazebo started with the idea of a high-fidelity simulator to simulate
 robots in outdoor environments under varied conditions.
 Today it offers the ability to simulate numerous robots in complex distinct environments.
 Gazebo is an open-source 3D simulator that supports sensors simulation 
-and actuators control under different physics engines.
+and actuators control under different physics engines~\cite{Gazebo}.
 
+\par
+
+Scenic is a domain-specific language used to describe scenarios.
+It is a probabilistic programming language and it helps design the 
+cyber-physical systems used in a simulation.
+Scenic big potential is allowing the randomization of specific scenarios delimited by the language.
+Although this is true Scenic as a problem, it is designed to support only 
+a specific number of simulators, mainly vehicle simulation~\cite{Scenic}.
+
+\par
+
+With this in mind, GzScenic was built. The GzScenic tool allows the generation of this type of 
+scenarios in the Gazebo simulator, which is the most popular general-purpose simulator~\cite{GzScenic}.
