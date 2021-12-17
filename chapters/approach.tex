@@ -5,13 +5,17 @@
 \label{chap:approach}
 
 
-The proposed approach consists initially in creating a specific language.
+The proposed approach consists initially in creating a domain-specific language.
 The language will serve as a way to describe the properties of a robot.
 For instance, if our robot is an autonomous car navigating on the road, 
 one property could be that the robot stops at stop signs.
 To describe robot properties, we also need the description of the testing scenario.
 In the above example, the "road" and "stop sign" should be defined in the language as part of the 
 testing scenario, without it there would be no way to describe the above property effectively.
+To describe the scenario itself we can use GzScenic~\cite{GzScenic} in order to take 
+advantage of the arbitrary creation of multiple scenario possibilities.
+This language will then be composed of a new domain-specific language in association 
+with the already established GzScenic language.
 
 \par
 
@@ -30,13 +34,12 @@ With this approach, the person doing the robot testing shouldn't need so much in
 knowledge about the robot to perform a test. This is because of the writing simplicity of 
 the language and the removal of the manual labor side of personally monitoring the robot.
 
-*add GzScenic to the text somehow*
+\par
 
-*TODO intro to the iamge and image*
+The final scheme of the tool proposed is represented in the below diagram.
 
-%Maybe no image here
-%\begin{figure}[h!]
-%    \includegraphics{images/intro_diag.png}
-%    \caption{Tool for monitoring robot properties.}
-%    \label{fig:intro_objectives}
-%\end{figure}
+\begin{figure}[h!]
+    \includegraphics{images/intro_diag.png}
+    \caption{Tool for monitoring robot properties.}
+    \label{fig:intro_objectives}
+\end{figure}
