@@ -9,3 +9,8 @@
 *.out
 *.synctex.gz
 *.toc
+*.xdv
+*.ind
+*.ilg
+*.fls
+*.fdb_latexmk
