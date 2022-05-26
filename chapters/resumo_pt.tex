@@ -8,7 +8,22 @@
 \end{center}
 \vspace*{1cm} \setlength{\baselineskip}{0.6cm}
 
-Os documentos escritos em português devem ter um resumo em português e um resumo noutra língua comunitária que contenham até 300 palavras cada. Num  trabalho final escrito em língua estrangeira, este deve ser acompanhado de um resumo em português entre 1200 e 1500 palavras.
+A Robótica tem uma grande influência na sociedade atual, ao ponto que a falha em algum robô que seja crucial pode impactar o modo em como nós vivemos, se por exemplo um carro autônomo provocar a morte de algum passageiro devido a um defeito, futuros e atuais utilizadores deste modelo irão certamente ficar apreensivos em relação à sua utilização. Assegurar que robôs reproduzam um comportamento correto pode assim salvar bastante dinheiro em estragos ou até mesmo as nossas vidas.
+
+As práticas atuais em relação à testagem de robôs são vastas e envolvem métodos como simulações, verificação de logs, ou testagem em campo, frequentemente, um denominador comum entre estas práticas é a necessidade de um humano pessoalmente analisar e determinar se o comportamento de um robô é o correto. A automatização deste tipo de análise poderia não só aliviar o trabalho de técnicos especializados, facilitando assim a realização de testes, mas também possivelmente detetar falhas no comportamento dos robôs que de outra maneira não seriam identificados devido a erros humanos.
+
+Esta dissertação almeja explorar o problema da automatação na deteção de erros comportamentais em robôs num ambiente de simulação, introduzindo uma linguagem de domínio (DSL) direcionada a especificar as propriedades de robôs em relação ao seu ambiente, e a geração de software de monitorização capaz de detetar a transgressão destas propriedades.
+
+A DSL necessita de expressar requisitos de determinados estados ou eventos durante a simulação, desta maneira precisa de apresentar determinadas características. Palavras-chave para representar relações temporais, como o robô "nunca", ou "eventualmente" o robô. Referências a estados anteriores, como a velocidade do robô é sempre maior que no estado anterior. Atalhos para se referir a certas utilidades, como "posição" ou "velocidade" do robô.
+
+A DSL também assume que o robô irá ser executado por meio da framework ROS (Robot Operating System), que é amplamente usada na indústria da robótica. A arquitectura do ROS engloba características como publish-subscribe entre "tópicos" e tipos de mensagem, estas características são tidas em conta e foram integradas no desenvolvimento da DSL.
+
+O software de monitorização gerado refere-se a um ficheiro python que correrá sobre a framework ROS. A geração deste ficheiro assume que a monitorização será feita no simulador Gazebo, isto porque para obter dados como a posição ou velocidade absoluta de um robô na simulação é necessário aceder a "tópicos" especificos que estão hardcoded. A geração de um ficheiro capaz de executar a monitorização significa que esta pode operar independente de um robô, ou seja, a automatização da monitorização pode ser realizada a respeito de um robô ou um grupo de robôs e o seu ambiente.
+
+Resultados mostram que é possível expressar propriedades temporais e posicionais de robôs com ajuda da DSL, assim como automatizar a monitorização da violação de alguns comportamentos esperados do robô em relação ao seu estado ou certos eventos durante uma simulação.
+
+
+*possiveis problemas, e futuro* - proof of language or that it works - better information on the errors - frequency of checking the properties can be modified in some circunstances to not check at every iteration - alargar a outros simuladores - integration with other tools liek scenario generation
 
 %Para documentos em Português: Resumo em português até \textbf{300} palavras.
 %Para documentos em língua estrangeira: Resumo em português entre \textbf{1200} e \textbf{1500} palavras.
@@ -17,7 +32,7 @@ Os documentos escritos em português devem ter um resumo em português e um resu
 
 \begin{flushleft}
 \textbf{Palavras-chave:}
-Máximo de 5 palavras-chave separadas por vírgulas.
+Robótica, Linguagem de domínio, Deteção de erros, Automação, Monitorização
 \end{flushleft}
 
 \selectlanguage{english}
