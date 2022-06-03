@@ -7,13 +7,13 @@
 \end{center}
 \vspace*{1cm} \setlength{\baselineskip}{0.6cm}
 
-Robotics has a big influence in today's society, so much that a failure in critical currently in use robots might impact the way we live. Assuring the correct behavior of robots can save a lot of money in possible damages or even our lives.
+Robotics has a big influence in today's society, so much that a potential failure in a robot may have extraordinary costs, not only financial but can also cost lives.
 
-Current practices in robot testing are vast and involve such methods as simulations, log checking, or field tests, the frequent common denominator between these practices is the need for human visualization to determine if a robot's behavior is correct. The automation of this type of analysis could not only relieve this burden from a specialized technician facilitating the manufacturing of tests but also possibly detect behavioral faults in the robots that would otherwise not be found due to human error.
+Current practices in robot testing are vast and involve such methods as simulations, log checking, or field tests. The frequent common denominator between these practices is the need for human visualization to determine the correctness of a given behavior. Automating this analysis could not only relieve this burden from a high-skilled engineer but also allow for massive parallel executions of tests, that could potentially detect behavioral faults in the robotic system that would otherwise not be found due to human error or lack of time.
 
-This dissertation aims at exploring the automation of robots behavioral errors detection in a simulation environment, introducing a domain-specific language (DSL) directed at specifying properties of robots in relation to their environment and generating monitoring software to detect the breaking of said properties.
+For my thesis, I have developed a domain-specific language to specify the properties of robotic systems in ROS. Specifications written by developers in this language can be compiled to a monitor ROS module, that will detect violations of those properties. I have used this language to express the temporal and positional properties of robots, and we have automated the monitoring of some behavioral violations of robots in relation to their state or events during a simulation.
 
-Results show that it is possible to express the temporal and positional properties of robots with the help of the DSL and automate the monitoring of some behavioral violations of robots in relation to their state or events during a simulation.
+*Evaluation ?*
 
 \vfill
 

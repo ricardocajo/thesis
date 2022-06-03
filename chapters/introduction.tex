@@ -4,17 +4,11 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-Be it a robot arm in a car assembly line, your vacuum cleaner, or a cat-like robot to carry 
-your food in a restaurant, robotics already have a great impact on our current society. 
-Due to their broad practicality, the quality of software 
-used by robots should be of extreme importance for us.
-Robot software as well as the techniques used to test their quality are very 
-field-specific and different from the techniques employed in traditional Software Engineering.
-Automatic tests are barely used in robotics due to multiple factors:
-cost, complexity, hardware integration, among others~\cite{TestRob}.
-The goal of this thesis is to overcome the challenges of automated 
-testing in robotics, by providing developers with a usable alternative 
-that allows detecting bugs with less effort through simulation.
+Robot arms in car assembly lines, autonomous vacuum cleaners, or cat-like robots to carry food in a restaurant, robotics already have a great impact on our current society. Due to their broad practicality, the quality of software used by robots should be of extreme importance to us.
+
+Robot software as well as the techniques used to test their quality are very field-specific and different from the techniques employed in traditional Software Engineering, mainly because robots are meant to interact with the real world. Automatic tests are barely used in robotics due to multiple factors: cost, complexity, and hardware integration, among others~\cite{TestRob}.
+
+The goal of this thesis is to remove the need for humans to manually inspect the correctness of robot behavior based on visual inspection, through the study of a possible solution for automation in the testing of robotic systems.
 
 
 % ------------------------------------------------------------------------------
@@ -22,28 +16,9 @@ that allows detecting bugs with less effort through simulation.
 \section{Motivation}
 \label{sec:motivation}
 
-Today, robots are vastly used industrially (medicine, agriculture, etc.) 
-or leisurely (contests, personal use, etc.).
-The tendency is for robot usage to keep growing at a global level.
-Robot tasks tend to be repetitive and rather specific.
-Therefore, Robot software also tends to be quite different from conventional software.
-The Cyber-Physical systems of robots are non-deterministic and unreliable, 
-mainly because robots interact directly with their environment.
-A sensor can return imprecise values since the environment itself can be very hard to predict.
-As a result, verifying whether a task or movement is correct is hard for a robot to conceive.
+Today, robots are vastly used industrially (medicine, agriculture, etc.) or leisurely (contests, personal use, etc.). The tendency is for robot usage to keep growing at a global level. Robot tasks tend to be repetitive or rather specific, but the robot software tends to be quite different from conventional software. The Cyber-Physical systems of robots are non-deterministic and unreliable, mainly because robots interact directly with the real world. A sensor can return imprecise values since the environment itself can be very hard to predict. As a result, verifying whether a task or movement is correct can be hard for a system to conceive.
 
-\par
-
-Current practices on testing robot software are common among developers, 
-including field testing, simulation testing, logs checking, among others.
-The common denominator among these is that they require a human to analyze 
-the behavior of the robot to determine whether the behavior is correct. 
-If there was a tool that could make this decision, automated tests 
-could be used more widely in robot systems.
-However, that is not the case as automatic tests are hardly used. 
-Opening this door would mean an improvement in the 
-quality of current and future robot software.
-
+Current practices in testing robot software involve, field testing, simulation testing, logs checking, among others. The common denominator among these is that they require a human to analyze the behavior of the robot to determine whether the behavior is correct. Studying possible options for viable automation of tests in robotic systems could lead to an opening on its usage in research and the industry. Allowing for multiple parallel executions of tests not depending on human visualization could improve the quality of current and future robot software.
 
 \section{Problem Statement}
 \label{sec:problem}
