@@ -23,44 +23,20 @@ Current practices in testing robot software involve, field testing, simulation t
 \section{Problem Statement}
 \label{sec:problem}
 
-The multiple challenges in robot testing have an influence on planning 
-how to test a robot because there are tradeoffs among choices.
-While simulation-based tests are a promising approach for automation 
-there is still distrust in the precision and validity of the results.
-This means that, despite being dangerous and sometimes expensive, 
-real-life robot testing is still the main choice.
-Both in real-world testing or simulations, 
-human supervising will most likely still be necessary.
-This is because identifying if a robot fulfills an expected 
-behavior is very hard for the robot itself.
-For this reason, automatic tests in the robotics field are 
-hardly reliable and hard to implement.
-The resulting product is a lack of quality in the software 
-across projects.
-In short, right now in the field is manually costly to identify 
-test scenarios and identify if the robot does what we want.
+The multiple challenges in robot testing have an influence on planning how to test a robot because there are tradeoffs among choices. While simulation-based tests are a promising approach for automation there is still distrust in the precision and validity of the results. This means that, despite being dangerous and sometimes expensive, real-life robot testing is still the main choice. Both in real-world testing or simulations, human supervising will most likely be used. This is because identifying if a robot fulfills an expected behavior is very hard for the robot system itself. For this reason, automatic tests in the robotics field are hardly reliable and hard to implement. The resulting product is a lack of quality in the software across projects.
 
+In the case of simulators, we can use the real value of objects' attributes in a simulation to compare with what the robot system perceives, but even so problems like what components to monitor and how to express them arise. Having a domain-specific language to specify a robotic system's properties can be useful or a burden depending on its complexity and accessibility.
 
 % ------------------------------------------------------------------------------
 % Objectives
 \section{Objectives}
 \label{sec:objectives}
 
-This work has the objective of showing the potential of automatic 
-tests in robotics and of simplifying their execution.
-With this in mind, we propose a mechanism that monitors a subset of 
-the components of the robot during or after tests execution.
-These components aren't arbitrary but are defined with the help of a descriptive high-level language.
-Not only the components but the test scenario should be described in this language.
-With the description of this language, one should be able to detect and 
-orchestrate relevant robot components associated with the testing scenario.
-The language should allow describing a robot property in a simple and intuitive way.
-This language will need to be supported by a compiler. 
-The compiler should translate the language to a monitoring mechanism.
-In this way, if a robot doesn't follow the properties defined by the 
-language, either during execution or a log analysis, the compiler will 
-detect an anomaly in the normal behavior of the robot.
+This work has the objective of showing how a domain-specific language can be used to specify temporal and positional properties of robotic systems and monitor the simulation components associated with these properties.
 
+The language should allow describing a robotic system's properties in a simple and intuitive way, while at the same time still being able to express relevant temporal and positional arguments between robots and objects in the simulation.
+
+The language will need to be supported by a compiler. The compiler should translate the language to a monitoring mechanism. In this way, if a robotic system doesn't follow the properties defined by the user writing in the language, during execution, the compiler should detect an anomaly and make the analysis that the behavior of the robot is not consistent.
 
 \section{Contributions}
 \label{sec:contributions}
@@ -68,9 +44,9 @@ detect an anomaly in the normal behavior of the robot.
 The expected contributions of this thesis are below enumerated.
 
 \begin{enumerate}
-    \item Definition of a descriptive high-level language to specify robots properties.
-    \item Implementation of compiler for the language that can be used for monitoring.
-    \item Evaluation of the expressive capability of the solution in real-world examples.
+    \item Definition of a domain-specific language to specify robotic systems' properties.
+    \item Implementation of a compiler for the language that can generate software capable of monitoring relevant components while in a simulation.
+    \item Evaluation of the expressive capabilities of the solution.
 \end{enumerate}
 
 % ------------------------------------------------------------------------------
@@ -81,8 +57,8 @@ The expected contributions of this thesis are below enumerated.
 The document is organized as follows:
 
 \begin{itemize}
-    \item Section 1...
-    \item Section 2...
-    \item Section 3...
+    \item Chapter 2 - Background \& Related Work:
+    \item Chapter 3 - Proposed Approach:
+    \item Chapter 4 -
 \end{itemize}
 
