@@ -2,10 +2,36 @@
 \chapter{Background \& Related Work}
 \label{chap:background}
 
-In this chapter as a background to the work, 
-the Robot Operating System (ROS) is intruduced.
-Has for related work, Gazebo is intruduced as the simulation software to be used 
-and GzScenic as a language that allows to specify testing scenarios.
+In order to to have a better understanding of the developed work some background on important concepts is given, in particular the Robot Operating System (ROS)~\cite{Ros}, Gazebo~\cite{Gazebo}, and literal temporal logic.
+
+Some understanding on the current state of the art is also needed,
+
+% ------------------------------------------------------------------------------
+% ROS
+\section{Robot Operating System}
+\label{sec:ros}
+
+ROS is an open-source framework with a vast collection of libraries, interfaces, and tools that help build robot software. 
+
+ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components throught what is called "topics" and "messages".
+
+ROS has a modular architecture along other advantages that were built with the purpose of cross-collaboration and easy development. For all these reasons ROS is used by hundreds of companies and research labs.
+
+% ------------------------------------------------------------------------------
+% Gazebo
+\section{Gazebo}
+\label{sec:gazebo}
+
+Robotic systems simulation is an essential tool for testing robots behavior, for this reason Gazebo started with the idea of a high-fidelity simulator to simulate robots in any type of environment under mixed conditions.
+
+Gazebo is an open-source 3D simulator that supports tools like sensors simulation, mesh management, actuators control under different physics engines, among others, which makes it a simulator that is used by very distinct robotic systems.
+
+% ------------------------------------------------------------------------------
+% Linear Temporal Logic
+\section{Linear Temporal Logic}
+\label{sec:ltl}
+
+
 
 % ------------------------------------------------------------------------------
 % Property Specification
@@ -17,48 +43,6 @@ and GzScenic as a language that allows to specify testing scenarios.
 \subsection{Invariants}
 
 % ------------------------------------------------------------------------------
-% ROS
-\section{Robot Operating System}
-\label{sec:ros}
-
-% ------------------------------------------------------------------------------
-% Gazebo
-\section{Gazebo}
-\label{sec:gazebo}
-
-% ------------------------------------------------------------------------------
 % Property Specification
 \section{Property Specification}
 \label{sec:propspecification}
-
-
-ROS is an open-source framework with a vast collection 
-of libraries and tools that help build robot software. 
-ROS runs on Linux Ubuntu and provides an abstraction between hardware and software.
-ROS was built with the purpose of cross-collaboration, there are
-packages for almost everything and no need to reinvent the wheel.
-ROS is the most widely used tool for writing robot software.
-Companies like Sony, LG, Rapyuta Robotics, etc., rely on ROS to deliver their products~\cite{Ros}.
-
-\par
-
-Robot simulation is an essential tool for testing robots behavior. 
-Gazebo started with the idea of a high-fidelity simulator to simulate 
-robots in outdoor environments under varied conditions.
-Today it offers the ability to simulate numerous robots in complex distinct environments.
-Gazebo is an open-source 3D simulator that supports sensors simulation 
-and actuators control under different physics engines~\cite{Gazebo}.
-
-\par
-
-Scenic is a domain-specific language used to describe scenarios.
-It is a probabilistic programming language and it helps design the 
-cyber-physical systems used in a simulation.
-Scenic big potential is allowing the randomization of specific scenarios delimited by the language.
-Although this is true Scenic as a problem, it is designed to support only 
-a specific number of simulators, mainly vehicle simulation~\cite{Scenic}.
-
-\par
-
-With this in mind, GzScenic was built. The GzScenic tool allows the generation of this type of 
-scenarios in the Gazebo simulator, which is the most popular general-purpose simulator~\cite{GzScenic}.
