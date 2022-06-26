@@ -1,0 +1,79 @@
+% !TeX root = ../main.tex
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Language
+\chapter{Language}
+\label{chap:language}
+
+% ------------------------------------------------------------------------------
+% High Level Notations
+\section{High Level Notations}
+
+\begin{itemize}
+\item \textbf{Declaration -} aa
+\item \textbf{Property -} aa
+\item \textbf{Model -} aa
+\item \textbf{Association -} aa
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% Properties
+\subsection{Properties}
+
+\begin{itemize}
+\item[--] always X (X has to hold on the entire subsequent path);
+\item[--] never X (X never holds on the entire subsequent path);
+\item[--] eventually X (X eventually has to hold, somewhere on the subsequent path);
+\item[--] after X, Y (after the event X is observed, Y has to hold on the entire subsequent path);
+\item[--] until X, Y (X holds at the current or future position, and Y has to hold until that position. At that position, Y does not have to hold anymore);
+\item[--] after\_until X, Y, Z (after the event X is observed, Z has to hold on the entire subsequent path up until Y happens, at that position Z does not have to hold anymore);
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% Operands
+\section{Operands}
+
+Besides Number / Boolean / Var
+
+\begin{itemize}
+\item \textbf{Temporal value -} aa
+\item \textbf{Function -} aa
+\item \textbf{Property -} aa
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% Temporal value
+\subsection{Temporal value}
+
+It is also possible to reference previous variable states:
+\begin{equation}
+@\{X, -y\}
+\end{equation}
+This will represent the value of the variable X in the point in time -y.
+
+% ------------------------------------------------------------------------------
+% Functions
+\subsection{Functions}
+
+\begin{itemize}
+\item[--] X.position (The position of the robot in the simulation);
+\item[--] X.position.y (The position in the y axis of the robot in the simulation. Also works for x and z);
+\item[--] X.distance.Y (The absolute distance between two objects in the simulation. For the x and y axis);
+\item[--] X.distanceZ.Y (The absolute distance between two objects in the simulation. For the x, y, and z axis);
+\item[--] X.velocity (The velocity of an object in the simulation. This refers to linear velocity);
+\item[--] X.velocity.x (The velocity in the x axis of an object in the simulation. This refers to linear velocity);
+\item[--] X.localization\_error - The difference between the robot's perception of its position and the actual position in the simulation;
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% Protected Variables
+\section{Protected Variables}
+
+\_rate\_ - Set the frame rate which properties are checked (By default the rate is 30hz)
+
+\_timeout\_ - Set the timeout for how long the verification will last (By default the timeout is 100 seconds)
+
+\_margin\_ - Set the error margin for comparisons
+
+% ------------------------------------------------------------------------------
+% Grammar
+\section{Grammar}
