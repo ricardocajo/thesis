@@ -4,11 +4,9 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-Robot arms in car assembly lines, autonomous vacuum cleaners, or cat-like robots to carry food in a restaurant, robotics already have a great impact on our current society. Due to their broad practicality, the quality of software used by robots should be of extreme importance to us.
+This thesis aims at exploring a possible solution for automation in the testing of robotic systems through the medium of a domain-specific language and simulation software.
 
-Robot software as well as the techniques used to test their quality are very field-specific and different from the techniques employed in traditional Software Engineering, mainly because robots are meant to interact with the real world. Automatic tests are barely used in robotics due to multiple factors: cost, complexity, and hardware integration, among others~\cite{TestRob}.
-
-The goal of this thesis is to remove the need for humans to manually inspect the correctness of robot behavior based on visual inspection, through the study of a possible solution for automation in the testing of robotic systems.
+The intent of this chapter is to introduce the motivation for this work (Section 1.1), present the problem statements of such an approach (Section 1.2), discuss the objectives (Section 1.3), present the expected contributions (Section 1.4), and finally summarize the structure of the rest of the document.
 
 
 % ------------------------------------------------------------------------------
@@ -16,27 +14,36 @@ The goal of this thesis is to remove the need for humans to manually inspect the
 \section{Motivation}
 \label{sec:motivation}
 
-Today, robots are vastly used industrially (medicine, agriculture, etc.) or leisurely (contests, personal use, etc.). The tendency is for robot usage to keep growing at a global level. Robot tasks tend to be repetitive or rather specific, but the robot software tends to be quite different from conventional software. The Cyber-Physical systems of robots are non-deterministic and unreliable, mainly because robots interact directly with the real world. A sensor can return imprecise values since the environment itself can be very hard to predict. As a result, verifying whether a task or movement is correct can be hard for a system to conceive.
+Robots are already vastly used in our current society, industrially (medicine, agriculture, etc.) or leisurely (contests, personal use, etc.) and can take a critical role like the example of robot arms in cars assembly lines or autonomous farms. The tendency is for robot usage to keep growing at a global level. 
 
-Current practices in testing robot software involve, field testing, simulation testing, logs checking, among others. The common denominator among these is that they require a human to analyze the behavior of the robot to determine whether the behavior is correct. Studying possible options for viable automation of tests in robotic systems could lead to an opening on its usage in research and the industry. Allowing for multiple parallel executions of tests not depending on human visualization could improve the quality of current and future robot software.
+Robot tasks tend to be repetitive or rather specific, but the robot software tends to be quite different from conventional software. The Cyber-Physical systems of robots are non-deterministic and unreliable, mainly because robots interact directly with the real world. A sensor can return imprecise values since the environment itself can be very hard to predict. As a result, verifying whether a task or movement is correct can be hard for a system to conceive.
+
+Current practices in testing robot software involve, field testing, simulation testing, and log checking, among others. The common denominator among these is that they require a human to analyze the behavior of the robot to determine whether the behavior is correct. Due to their broad practicality, the quality of software used by robots should be of extreme importance to us. Robot software as well as the techniques used to test their quality are very field-specific and different from the techniques employed in traditional Software Engineering mainly because of what was above mentioned, this means automatic tests are barely used in robotics. Studying possible options for viable automation of tests in robotic systems could lead to an opening on its usage in research and the industry. Allowing for multiple parallel executions of tests not depending on human visualization could improve the quality of current and future robot software.
+
 
 \section{Problem Statement}
 \label{sec:problem}
 
-The multiple challenges in robot testing have an influence on planning how to test a robot because there are tradeoffs among choices. While simulation-based tests are a promising approach for automation there is still distrust in the precision and validity of the results. This means that, despite being dangerous and sometimes expensive, real-life robot testing is still the main choice. Both in real-world testing or simulations, human supervising will most likely be used. This is because identifying if a robot fulfills an expected behavior is very hard for the robot system itself. For this reason, automatic tests in the robotics field are hardly reliable and hard to implement. The resulting product is a lack of quality in the software across projects.
+The multiple challenges in robot testing have an influence on planning how to test a robot because there are tradeoffs among choices. While simulation-based tests are a promising approach for automation there is still distrust in the precision and validity of the results. Simulation-based autonomous testing is barely used due to not only reliability but also factors like cost, complexity, and hardware integration, among others. This means that, despite being dangerous and sometimes expensive, real-life robot testing is still the main choice. 
 
-In the case of simulators, we can use the real value of objects' attributes in a simulation to compare with what the robot system perceives, but even so problems like what components to monitor and how to express them arise. Having a domain-specific language to specify a robotic system's properties can be useful or a burden depending on its complexity and accessibility.
+Both in real-world testing or simulations, human supervising will most likely be used. This is because identifying if a robot fulfills an expected behavior is very hard for the robot system itself. Currently, automatic tests in the robotics field are hardly reliable and hard to implement, the resulting product is a lack of quality in the software across projects.
+
+In the case of simulators, the real value of objects' attributes in a simulation can be used to compare with what the robotic system perceives, using this alleyway it is possible to in a way surpass the need for human-in-the-loop testing. Even so problems like what components to monitor and how to express them arise. Having a domain-specific language to specify a robotic system's properties can be useful or a burden depending on its complexity and accessibility.
+
 
 % ------------------------------------------------------------------------------
 % Objectives
 \section{Objectives}
 \label{sec:objectives}
 
+The ultimate goal of this thesis is to remove the need for humans to manually inspect the correctness of robot behavior based on visual inspection, through the study of a possible solution for automation in the testing of robotic systems.
+
 This work has the objective of showing how a domain-specific language can be used to specify temporal and positional properties of robotic systems and monitor the simulation components associated with these properties.
 
 The language should allow describing a robotic system's properties in a simple and intuitive way, while at the same time still being able to express relevant temporal and positional arguments between robots and objects in the simulation.
 
 The language will need to be supported by a compiler. The compiler should translate the language to a monitoring mechanism. In this way, if a robotic system doesn't follow the properties defined by the user writing in the language, during execution, the compiler should detect an anomaly and make the analysis that the behavior of the robot is not consistent.
+
 
 \section{Contributions}
 \label{sec:contributions}
