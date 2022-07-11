@@ -2,18 +2,18 @@
 \chapter{Background \& Related Work}
 \label{chap:background}
 
-In order to to have a better understanding of the developed work some background on important concepts is given, in particular the Robot Operating System (ROS)~\cite{Ros}, Gazebo~\cite{Gazebo}, and literal temporal logic.
+*Write structure after writing everything*
 
-Some understanding on the current state of the art is also needed,
+\section{Software}
+
+*structure*
 
 % ------------------------------------------------------------------------------
 % ROS
 \section{Robot Operating System}
 \label{sec:ros}
 
-ROS is an open-source framework with a vast collection of libraries, interfaces, and tools that help build robot software. 
-
-ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components throught what are called "topics" and "messages".
+The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools that were designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components through messages sent through communication channels (\textit{topics}).
 
 ROS has a modular architecture along other advantages that were built with the purpose of cross-collaboration and easy development. For all these reasons ROS is used by hundreds of companies and research labs.
 
@@ -22,16 +22,18 @@ ROS has a modular architecture along other advantages that were built with the p
 \section{Gazebo}
 \label{sec:gazebo}
 
-Robotic systems simulation is an essential tool for testing robots behavior, for this reason Gazebo started with the idea of a high-fidelity simulator to simulate robots in any type of environment under mixed conditions.
+Robotic systems simulation is an essential tool for testing robots behavior, for this reason Gazebo~\cite{koenig2004design} started with the idea of a high-fidelity simulator to simulate robots in any type of environment under mixed conditions.
 
-Gazebo is an open-source 3D simulator that supports tools like sensors simulation, mesh management, actuators control under different physics engines, among others, which makes it a simulator that is used by very distinct robotic systems.
+Gazebo is an open-source 3D simulator that supports tools like sensors simulation, mesh management, actuators control under different physics engines, among others, which makes it a simulator that can be used by very distinct robotic systems.
 
 % ------------------------------------------------------------------------------
 % Linear Temporal Logic
 \section{Linear Temporal Logic}
 \label{sec:ltl}
 
-Linear temporal logic is a branch of logic responsible in representing and reason about modalities in reference to time. It includes operators such as "always", "finally", "until", and variants.
+Linear temporal logic (LTL) is a branch of logic responsible for representing and reasoning about modalities in reference to time. 
+
+As an approach for program verification, a formal system of temporal logic was suggested for both sequential and parallel programs~\cite{pnueli1977temporal}. LTL can be used as a method of model-checking~\cite{dwyer1998property} using its patterns as a form of property specification. It includes patterns such as "always", "finally", "until", "eventually", and others, which can be useful in the creation of invariants for program verification.
 
 % ------------------------------------------------------------------------------
 % Property Specification
@@ -39,12 +41,13 @@ Linear temporal logic is a branch of logic responsible in representing and reaso
 \label{sec:robottesting}
 
 \subsection{Invariants}
-https://clairelegoues.com/papers/zizyte21dsn.pdf
+%https://clairelegoues.com/papers/zizyte21dsn.pdf
+%~\cite{zizyte2021importance}
+
+\subsection{Runtime Monitoring}
+%https://rose-workshops.github.io/files/rose2022/papers/RoSE22_paper_4.pdf
+%~\cite{stadler2022towards}
 
 \subsection{Similar work}
-
-% ------------------------------------------------------------------------------
-% Property Specification
-\section{Property Specification}
-\label{sec:propspecification}
-??
+%ROSMonitoring~\cite{ferrando2020rosmonitoring}
+%ROSRV~\cite{huang2014rosrv}
