@@ -86,7 +86,7 @@ In order to relate robot components with the simulation, the developer can decla
 
 \textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
 
-\vspace{2mm}
+%\vspace{2mm}
 
 \texttt{decl robot\_position /odom Odometry.pose.pose.position}
 
@@ -96,7 +96,7 @@ In order to relate robot components with the simulation, the developer can decla
 
 There are a set of specific topics that can be modeled for the robot, like \textit{position} or \textit{velocity}. These will be used by the compiler to call specific functions that need this information from the robot's perspective.
 
-\vspace{2mm}
+%\vspace{2mm}
 
 \texttt{model robot1:}
 
@@ -104,7 +104,7 @@ There are a set of specific topics that can be modeled for the robot, like \text
 
 \texttt{    ;}
 
-\vspace{2mm}
+%\vspace{2mm}
 
 \texttt{never robot1.localization error > 0.002}
 
@@ -112,11 +112,10 @@ There are a set of specific topics that can be modeled for the robot, like \text
 % Grammar
 \section{Grammar}
 
-\begin{bnfgrammar}
+\begin{bnfgrammar}  %TODO add bold text to endings
     program : Start
     ::=
-    command
-    | command program
+    command || command program
     ;;
     command ::=
     association
@@ -129,78 +128,78 @@ There are a set of specific topics that can be modeled for the robot, like \text
     | \_rate\_ = integer
     | \_timeout\_ = number
     | \_default\_margin\_ = number
+    ;;
+    declaration ::=
+    decl name topic\_name msgtype
+    | decl name name msgtype
+    ;;
+    model ::= 
+    model name \: modelargs ; %TODO escape :
+    ;;
+    modelargs ::= 
+    name topic\_name msgtype
+    | name name msgtype
+    | name topic\_name msgtype modelargs
+    | name name msgtype modelargs
+    ;;
+    name ::= 
+    name || func\_main
+    ;;
+    func\_main ::= 
+    position
+    | velocity
+    | distance
+    | localization\_error
+    | orientation
+    ;;
+    msgtype ::= 
+    name || name . msgtype
+    ;;
+    pattern ::= 
+    always pattern
+    | never pattern
+    | eventually pattern
+    | after pattern , pattern
+    | until pattern , pattern
+    | after\_until pattern , pattern , pattern
+    | conjunction
+    ;;
+    conjunction ::= 
+    conjunction and comparison
+    | conjunction or comparison
+    | conjunction implies comparison
+    | comparison
+    ;;
+    comparison ::= 
+    multiplication opbin multiplication
+    | multiplication opbin { number } multiplication
+    | multiplication
+    ;;
+    opbin ::= 
+    < || > || <= || >= || == || !=
+    ;;
+    multiplication ::= 
+    multiplication * addition
+    | multiplication / addition
+    | addition
+    ;;
+    addition ::= addition + operand
+    | addition - operand
+    | operand
+    ;;
+    operand ::= 
+    name || number || true || false || func || temporalvalue || ( pattern )
+    ;;
+    number ::= 
+    float || integer
+    ;;
+    func ::= 
+    name . func\_main
+    | name . func\_main funcargs
+    ;;
+    funcargs ::= 
+    . name || . name funcargs
+    ;;
+    temporalvalue ::= 
+    @ { name , integer }
 \end{bnfgrammar}
-
-
-   <declaration> → decl name topic\_name <msgtype>
-                 | decl name name <msgtype>
-
-         <model> → model name : <modelargs> ;
-
-     <modelargs> → <name> topic\_name <msgtype>
-                 | <name> <name> <msgtype>
-                 | <name> topic\_name <msgtype> <modelargs>
-                 | <name> <name> <msgtype> <modelargs>
-
-          <name> → name
-                 | <func\_main>
-
-     <func\_main> → position
-                 | velocity
-                 | distance
-                 | localization\_error
-                 | orientation
-
-       <msgtype> → <name>
-                 | <name> . <msgtype>
-
-       <pattern> → always <pattern>
-                 | never <pattern>
-                 | eventually <pattern>
-                 | after <pattern> , <pattern>
-                 | until <pattern> , <pattern>
-                 | after\_until <pattern> , <pattern> , <pattern>
-                 | <conjunction>
-
-   <conjunction> → <conjunction> and <comparison>
-                 | <conjunction> or <comparison>
-                 | <conjunction> implies <comparison>
-                 | <comparison>
-
-    <comparison> → <multiplication> <opbin> <multiplication>
-                 | <multiplication> <opbin> { <number> } <multiplication>
-                 | <multiplication>
-
-         <opbin> → <
-                 | >
-                 | <=
-                 | >=
-                 | ==
-                 | !=
-
-<multiplication> → <multiplication> * <addition>
-                 | <multiplication> / <addition>
-                 | <addition>
-
-      <addition> → <addition> + <operand>
-                 | <addition> - <operand>
-                 | <operand>
-
-       <operand> → name
-                 | <number>
-                 | true
-                 | false
-                 | <func>
-                 | <temporalvalue>
-                 | ( <pattern> )
-
-        <number> → float
-                 | integer
-
-          <func> → name . <func\_main>
-                 | name . <func\_main> <funcargs>
-
-      <funcargs> → . <name>
-                 | . <name> <funcargs>
-
- <temporalvalue> → @ { name , integer }

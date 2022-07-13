@@ -2,11 +2,11 @@
 \chapter{Background \& Related Work}
 \label{chap:background}
 
-*Write structure after writing everything*
+This chapter gives an overview on the software adopted while developing this work (section 2.1), followed by a brief explanation on Linear Temporal Logic (section 2.2), and finally shines some light on the already existing similar work on the subject (section 2.3).
 
 \section{Software}
 
-*structure*
+In this section some background on the used software and why its choice is given, what is the Robot Operating System (subsection 2.1.1) and the simulation software adopted (subsection 2.1.2).
 
 % ------------------------------------------------------------------------------
 % ROS
@@ -40,14 +40,26 @@ As an approach for program verification, a formal system of temporal logic was s
 \section{Robot Testing}
 \label{sec:robottesting}
 
+Some research on the importance invariants checking (subsection 2.3.1) and runtime testing and the difficulties of implementing it already exist (subsection 2.3.2). As well as some tools that already try to implement similar runtime verification concepts (subsection 2.3.3).
+
 \subsection{Invariants}
-%https://clairelegoues.com/papers/zizyte21dsn.pdf
-%~\cite{zizyte2021importance}
+
+An invariant represents a property that holds throught the execution of the system. Having a set of invariants for a robotic system and being able to assert them at runtime makes it able to prove the correctness of the system.
+
+Research on invariant checking~\cite{zizyte2021importance} shows that a considerable amout of bugs on autonomous robotic systems can be avoided when representing safety violations of systems and monitoring them.
 
 \subsection{Runtime Monitoring}
-%https://rose-workshops.github.io/files/rose2022/papers/RoSE22_paper_4.pdf
-%~\cite{stadler2022towards}
+
+Due to the unforseen circunstances mentioned when executing robotic systems, runtime monitoring although sometimes time-consuming may be advantageous when identifying errors in these type of systems.
+
+Implementing a form of runtime monitoring adds load to the simulation, not demanding excessive resources is important when taking this approach.
+
+Some of the challenges on implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
 
 \subsection{Similar work}
-%ROSMonitoring~\cite{ferrando2020rosmonitoring}
-%ROSRV~\cite{huang2014rosrv}
+
+Similar work on runtime monitoring that integrate with ROS already exist. 
+
+ROSMonitoring~\cite{ferrando2020rosmonitoring} is able to monitor and log errors at the level of \textit{topic} malfunctioning, but it seems not to be able to express more high-level properties which is the objective of this work.
+
+ROSRV~\cite{huang2014rosrv} although apparently being able to express more high-level specifications it is highly complex and in some way hard for non expert users to work with. Having a intuitive domain-specific language will allow for a broad set of users to specify a robotic systems' properties.
