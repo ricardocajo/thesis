@@ -7,27 +7,29 @@
 *structure explanation*
 
 % ------------------------------------------------------------------------------
-% High Level Notations
+% High-Level Notations
 \section{High Level Notations}
 
 \begin{itemize}
-\item \textbf{Declaration -} aa
-\item \textbf{Property -} aa
-\item \textbf{Model -} aa
-\item \textbf{Association -} aa
+\item \textbf{Property -} A property represents a temporal specification or a blend of temporal specifications between components.
+\item \textbf{Declaration -} A declaration allows for the representation of ROS \textit{topics} in order to interact with it.
+\item \textbf{Model -} A model allows for the declaration of specific \textit{topics} that are required when correlating certain robots' and simulation components.
+\item \textbf{Association -} An association serves as a way to create program variables.
 \end{itemize}
 
 % ------------------------------------------------------------------------------
-% Properties
+% Temporal Keywords
 \subsection{Temporal Keywords}
 
+We consider not only LTL basic operators but also some common shortcuts for useful combinations of such operators, like \textit{after\_until}.
+
 \begin{itemize}
-\item[--] {\bfseries always X} - X has to hold on the entire subsequent path;
+\item {\bfseries always X} - X has to hold on the entire subsequent path;
 \item {\bfseries never X} - X never holds on the entire subsequent path;
-\item {\bfseries eventually X} - X eventually has to hold, somewhere on the subsequent path;
+\item {\bfseries eventually X} - X eventually has to hold somewhere on the subsequent path;
 \item {\bfseries after X, Y} - after the event X is observed, Y has to hold on the entire subsequent path;
 \item {\bfseries until X, Y} - X holds at the current or future position, and Y has to hold until that position. At that position, Y does not have to hold anymore;
-\item {\bfseries after\_until X, Y, Z} - after the event X is observed, Z has to hold on the entire subsequent path up until Y happens, at that position Z does not have to hold anymore;
+\item {\bfseries after\_until X, Y, Z} - after the event X is observed, Z has to hold on the entire subsequent path up until Y happens. At that position, Z does not have to hold anymore;
 \end{itemize}
 
 %\noindent It is also possible to reference previous states of variables, using \textbf{\lstinline|@{X, -y}|}, representing the value of variable \lstinline|X| at time \lstinline|-y|.
@@ -43,20 +45,10 @@ It is also possible to reference previous variable states:
 This will represent the value of the variable X in the point in time -y.
 
 % ------------------------------------------------------------------------------
-% Operands
-\section{Operands}
-
-Besides Number / Boolean / Var
-
-\begin{itemize}
-\item \textbf{Temporal value -} aa
-\item \textbf{Function -} aa
-\item \textbf{Property -} aa
-\end{itemize}
-
-% ------------------------------------------------------------------------------
 % Functions
 \subsection{Simulation primivitives}
+
+To support comparing the internal state of the robotic system with the environment, we provide basic primitives in the language to refer to the simulation environment:
 
 \begin{itemize}
 \item {\bfseries X.position} - The position of the robot in the simulation;
@@ -69,12 +61,26 @@ Besides Number / Boolean / Var
 \end{itemize}
 
 % ------------------------------------------------------------------------------
+% Operands
+\section{Operands}
+
+Besides the already mentioned operands, \textit{Temporal values}, \textit{Simulation primivitives}, and \textit{Temporal Keywords}, the DSL also supports both Integer and Float values, Booleans, and declared variables.
+
+% ------------------------------------------------------------------------------
+% Operators
+\section{Operators}
+
+The DSL supports operators to correlate components. The operators are \textit{+} (addition), \textit{-} (subtraction), \textit{*} (multiplication), \textit{/} (division), \textit{==} (equals), \textit{!=} (different), \textit{>} (greater than), \textit{>=} (greater or equal than), \textit{<} (lower than), \textit{<=} (lower or equal than), \textit{and} (conjunction), \textit{or} (disjunction), \textit{implies} (implication), and for any comparison operator X \textit{X{y}} - the values being compared will have an error margin of y (Example: Z =={0.05} Y).
+
+% ------------------------------------------------------------------------------
 % Protected Variables
 \section{Protected Variables}
 
-\_rate\_ - Set the frame rate which properties are checked (By default the rate is 30hz)
+Protected variables are variable names restricted to set determined monitoring parameters.
 
-\_timeout\_ - Set the timeout for how long the verification will last (By default the timeout is 100 seconds)
+\_rate\_ - Set the frame rate which properties are checked (By default, the rate is 30hz)
+
+\_timeout\_ - Set the timeout for how long the verification will last (By default, the timeout is 100 seconds)
 
 \_margin\_ - Set the error margin for comparisons
 
@@ -82,7 +88,9 @@ Besides Number / Boolean / Var
 % Topic declaration
 \section{Topic declaration}
 
-In order to relate robot components with the simulation, the developer can declare the relevant \textit{topic}.
+In order to relate robot components with the simulation, the developer can declare the relevant \textit{topics}.
+
+The language cannot inherently have a way to interact with specific components of a robot because it does not know which topic to get information from. Therefore, the developer needs to declare these specific topics to be able to interact with them.
 
 \textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
 
@@ -94,7 +102,7 @@ In order to relate robot components with the simulation, the developer can decla
 % Model robots
 \section{Model robots}
 
-There are a set of specific topics that can be modeled for the robot, like \textit{position} or \textit{velocity}. These will be used by the compiler to call specific functions that need this information from the robot's perspective.
+A set of specific topics can be modeled for the robot, like \textit{position} or \textit{velocity}. The compiler will use these to call specific functions that need this information from the robot's perspective.
 
 %\vspace{2mm}
 
@@ -112,94 +120,94 @@ There are a set of specific topics that can be modeled for the robot, like \text
 % Grammar
 \section{Grammar}
 
-\begin{bnfgrammar}  %TODO add bold text to endings
-    program : Start
+\begin{bnfgrammar}
+    <program> : Start
     ::=
-    command || command program
+    <command> || <command> <program>
     ;;
-    command ::=
-    association
-    | declaration
-    | model
-    | pattern
+    <command> ::=
+    <association>
+    | <declaration>
+    | <model>
+    | <pattern>
     ;; 
-    association ::=
-    name = pattern
+    <association> ::=
+    name = <pattern>
     | \_rate\_ = integer
-    | \_timeout\_ = number
-    | \_default\_margin\_ = number
+    | \_timeout\_ = <number>
+    | \_default\_margin\_ = <number>
     ;;
-    declaration ::=
-    decl name topic\_name msgtype
-    | decl name name msgtype
+    <declaration> ::=
+    decl name topic\_name <msgtype>
+    | decl name name <msgtype>
     ;;
-    model ::= 
-    model name \: modelargs ; %TODO escape :
+    <model> ::= 
+    model name \: <modelargs> ; %TODO escape :
     ;;
-    modelargs ::= 
-    name topic\_name msgtype
-    | name name msgtype
-    | name topic\_name msgtype modelargs
-    | name name msgtype modelargs
+    <modelargs> ::= 
+    <name> topic\_name <msgtype>
+    | <name> <name> <msgtype>
+    | <name> topic\_name <msgtype> <modelargs>
+    | <name> <name> <msgtype> <modelargs>
     ;;
-    name ::= 
-    name || func\_main
+    <name> ::= 
+    name || <func\_main>
     ;;
-    func\_main ::= 
+    <func\_main> ::= 
     position
     | velocity
     | distance
     | localization\_error
     | orientation
     ;;
-    msgtype ::= 
-    name || name . msgtype
+    <msgtype> ::= 
+    <name> || <name> . <msgtype>
     ;;
-    pattern ::= 
-    always pattern
-    | never pattern
-    | eventually pattern
-    | after pattern , pattern
-    | until pattern , pattern
-    | after\_until pattern , pattern , pattern
-    | conjunction
+    <pattern> ::= 
+    always <pattern>
+    | never <pattern>
+    | eventually <pattern>
+    | after <pattern> , <pattern>
+    | until <pattern> , <pattern>
+    | after\_until <pattern> , <pattern> , <pattern>
+    | <conjunction>
     ;;
-    conjunction ::= 
-    conjunction and comparison
-    | conjunction or comparison
-    | conjunction implies comparison
-    | comparison
+    <conjunction> ::= 
+    <conjunction> and <comparison>
+    | <conjunction> or <comparison>
+    | <conjunction> implies <comparison>
+    | <comparison>
     ;;
-    comparison ::= 
-    multiplication opbin multiplication
-    | multiplication opbin { number } multiplication
-    | multiplication
+    <comparison> ::= 
+    <multiplication> <opbin> <multiplication>
+    | <multiplication> <opbin> { <number> } <multiplication>
+    | <multiplication>
     ;;
-    opbin ::= 
+    <opbin> ::= 
     < || > || <= || >= || == || !=
     ;;
-    multiplication ::= 
-    multiplication * addition
-    | multiplication / addition
-    | addition
+    <multiplication> ::= 
+    <multiplication> * <addition>
+    | <multiplication> / <addition>
+    | <addition>
     ;;
-    addition ::= addition + operand
-    | addition - operand
-    | operand
+    <addition> ::= <addition> + <operand>
+    | <addition> - <operand>
+    | <operand>
     ;;
-    operand ::= 
-    name || number || true || false || func || temporalvalue || ( pattern )
+    <operand> ::= 
+    name || <number> || true || false || <func> || <temporalvalue> || ( <pattern> )
     ;;
-    number ::= 
+    <number> ::= 
     float || integer
     ;;
-    func ::= 
-    name . func\_main
-    | name . func\_main funcargs
+    <func> ::= 
+    name . <func\_main>
+    | name . <func\_main> <funcargs>
     ;;
-    funcargs ::= 
-    . name || . name funcargs
+    <funcargs> ::= 
+    . <name> || . <name> <funcargs>
     ;;
-    temporalvalue ::= 
+    <temporalvalue> ::= 
     @ { name , integer }
 \end{bnfgrammar}

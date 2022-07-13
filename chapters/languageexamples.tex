@@ -1,0 +1,53 @@
+% !TeX root = ../main.tex
+\chapter{DSL Usage Examples}
+\label{chap:languageexamples}
+
+To validate the expressive power of our language, we present examples of expressions inspired by real-world scenarios.
+
+
+\section{Vehicle Maximum Speed}
+
+Some robots have a maximum safe speed at which they can move. Sometimes this limit is imposed by law, but some other times by physical constraints.
+
+
+\textit{The robot velocity will never be above 2 for the duration of the simulation;}
+
+%\vspace{2mm}
+
+\texttt{never robot.velocity > 2.0}
+
+\section{Follow the Leader}
+
+The first robot being above 1 velocity implies that the second robot is at least at 0.8 distance from the first robot. Up until the first robot reaches a particular location;
+
+%\vspace{2mm}
+
+\texttt{until (robot1.position.x > 45 and robot1.position.y > 45), always (robot1.velocity > 1 implies robot2.distance.robot1 > 0.8)}
+
+
+\section{Localization error}
+
+The localization error (difference between the robot's perception of its location and the actual simulation location) of the robot is never above a specific value.
+
+\texttt{model robot1:}
+
+\texttt{    position /odom Odometry.pose.pose.position}
+
+\texttt{    ;}
+
+\texttt{never robot1.localization error > 0.002}
+
+
+\section{Drone height rotors control}
+
+After a drone is at a certain altitude, both rotors always have the same velocity up until the drone decreases to a certain altitude.
+
+%\vspace{2mm}
+
+\texttt{decl rotor1\_vel /drone\_mov/rotor1 Vector3.linear.x}
+
+\texttt{decl rotor2\_vel /drone\_mov/rotor2 Vector3.linear.x}
+
+%\vspace{2mm}
+
+\texttt{after\_until drone.position.z > 5, drone.position.z < 5, rotor1\_vel == rotor2\_vel}
