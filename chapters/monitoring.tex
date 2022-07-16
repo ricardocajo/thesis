@@ -4,20 +4,48 @@
 \chapter{Monitoring}
 \label{chap:monitoring}
 
+In this chapter the whole process of monitoring from compilation to error detection are explained. *Explain sections*
+
+% ------------------------------------------------------------------------------
+% Monitor
+\section{Runtime Monitoring}
+
 Compile -> generate file -> ROS
+
+python language.py properties.txt /home/ros\_workspace/src/my\_pkg/src
+
+how to Compile
+
+file location
+
+how to run?
+
+An independent node -> rosrun
 
 % ------------------------------------------------------------------------------
 % Generated File
 \section{Generated File}
 
-% ------------------------------------------------------------------------------
-% Fetch simulation data
-\subsection{Fetch simulation data}
+declare the subscribers and use ApproximateTimeSynchronizer in order to call the callback function using the most approximate timed messages.
 
-% ------------------------------------------------------------------------------
-% Verifying properties
-\subsection{Verifying properties}
+the callback function saves the relevant information for property checking in a global variable.
+
+while an exception is not called due to a broken property loop and check for:
+
+if timeout time has reached
+
+save the current global state of the simulation
+
+Reason to save states: subscribers receive messages at different times so need to take "screenshots" of the simulation with the more reliable approximate representation of the siomulation to make the comparisons, multiple "screenshots" might be needed in order to make correlations with past states.
+
+verify the properties using the saved states and calling each created function, for each base property defined an independent function with the necessary computations for verifying the property is created
 
 % ------------------------------------------------------------------------------
 % Error Messages
 \section{Error Messages}
+
+format: ...
+
+show image
+
+show failed property. show property variables values at the time of failure
