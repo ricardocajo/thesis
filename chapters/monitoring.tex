@@ -4,48 +4,54 @@
 \chapter{Monitoring}
 \label{chap:monitoring}
 
-In this chapter the whole process of monitoring from compilation to error detection are explained. *Explain sections*
+This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained (section 6.1), then the generated file and some of its specifications are described (section 6.2), and finally, the shown error messages are illustrated (section 6.3).
 
 % ------------------------------------------------------------------------------
 % Monitor
 \section{Runtime Monitoring}
 
-Compile -> generate file -> ROS
+After writing all the desired robotic systems specifications, the file needs to be compiled to generate the monitoring python file. Currently, to compile a specification file, one has to do it through the console under the same directory of the \textit{language.py} file. As for the command:
 
-python language.py properties.txt /home/ros\_workspace/src/my\_pkg/src
+\texttt{python language.py properties.txt /home/ros\_workspace/src/my\_pkg/src}
 
-how to Compile
+The \textit{language.py} file needs to be run as a python file and be given as arguments:
 
-file location
+\begin{enumerate}
+    \item The specifications file name, and in case it is not in the same directory as the \textit{language.py} file, give its absolute path.
+    \item The expected absolute path of the generated python monitoring file.
+\end{enumerate}
 
-how to run?
+The given directory for the generated file should be under a ROS workspace for the compilation to succeed. This is because, during the compilation, access to information like the available ROS messages might be necessary.
 
-An independent node -> rosrun
+The monitoring file can now run as an independent ROS node, integrated into a launch file, or using rosrun in the console to execute it.
+
 
 % ------------------------------------------------------------------------------
 % Generated File
 \section{Generated File}
 
-declare the subscribers and use ApproximateTimeSynchronizer in order to call the callback function using the most approximate timed messages.
+Declare the needed subscribers and use ApproximateTimeSynchronizer to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, use the ROS time.
 
-the callback function saves the relevant information for property checking in a global variable.
+The callback function is called every time a new message from one of the subscribers is received. The callback function saves the relevant information for property checking in a global variable. This information serves as a current "screenshot" of the simulation representing its current state.
 
-while an exception is not called due to a broken property loop and check for:
+The node executes a loop at a delineated rate, doing the following tasks. 
 
-if timeout time has reached
+Check if the defined simulation timeout time has reached. 
 
-save the current global state of the simulation
+Save the current simulation state obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and we want to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states. 
 
-Reason to save states: subscribers receive messages at different times so need to take "screenshots" of the simulation with the more reliable approximate representation of the siomulation to make the comparisons, multiple "screenshots" might be needed in order to make correlations with past states.
+Verify the properties using the saved states and calling each created function. An independent function with the necessary computations for verifying the property is defined for each base property.
 
-verify the properties using the saved states and calling each created function, for each base property defined an independent function with the necessary computations for verifying the property is created
 
 % ------------------------------------------------------------------------------
 % Error Messages
 \section{Error Messages}
 
-format: ...
+An error message starts by stating the line in the specification file which resulted in an error and showing the specification itself.
 
-show image
+Afterward, the value at the time of failure of all the variables present at the specification is shown.
 
-show failed property. show property variables values at the time of failure
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{images/error_message.pdf}
+\caption{Example of an error message.} \label{fig2}
+\end{figure}

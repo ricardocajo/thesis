@@ -121,15 +121,15 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
 \section{Grammar}
 
 \begin{bnfgrammar}
-    <program> : Start
+    <program> %: Start
     ::=
     <command> || <command> <program>
     ;;
     <command> ::=
     <association>
-    | <declaration>
-    | <model>
-    | <pattern>
+    || <declaration>
+    || <model>
+    || <pattern>
     ;; 
     <association> ::=
     name = <pattern>
@@ -155,10 +155,10 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
     ;;
     <func\_main> ::= 
     position
-    | velocity
-    | distance
-    | localization\_error
-    | orientation
+    || velocity
+    || distance
+    || localization\_error
+    || orientation
     ;;
     <msgtype> ::= 
     <name> || <name> . <msgtype>
@@ -192,18 +192,18 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
     | <addition>
     ;;
     <addition> ::= <addition> + <operand>
-    | <addition> - <operand>
-    | <operand>
+    || <addition> - <operand>
+    || <operand>
     ;;
     <operand> ::= 
-    name || <number> || true || false || <func> || <temporalvalue> || ( <pattern> )
+    name | <number> | true | false | <func> | <temporalvalue> | ( <pattern> )
     ;;
     <number> ::= 
     float || integer
     ;;
     <func> ::= 
     name . <func\_main>
-    | name . <func\_main> <funcargs>
+    || name . <func\_main> <funcargs>
     ;;
     <funcargs> ::= 
     . <name> || . <name> <funcargs>
