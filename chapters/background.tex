@@ -4,7 +4,7 @@
 
 This chapter gives an overview of the software adopted while developing this work (section 2.1), followed by a brief explanation of Linear Temporal Logic (section 2.2), and finally shines some light on the already existing similar work on the subject (section 2.3).
 
-\section{Software}
+\section{Software for Robotics}
 
 This section provides some background on the used software and the reason for its choice, what the Robot Operating System is (subsection 2.1.1), and the simulation software adopted (subsection 2.1.2).
 
@@ -16,6 +16,8 @@ This section provides some background on the used software and the reason for it
 The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components through messages sent through communication channels (\textit{topics}).
 
 ROS has a modular architecture and other advantages built with the purpose of cross-collaboration and easy development. For all these reasons, ROS is used by hundreds of companies and research labs.
+
+\af{Acho que ficava bem aqui referir a conclusão do paper It takes a village, onde dizes que um conjunto de pacotes é usado em quase todos os projectos.}
 
 % ------------------------------------------------------------------------------
 % Gazebo
@@ -33,7 +35,7 @@ Gazebo is an open-source 3D simulator that supports tools like sensors simulatio
 
 Linear temporal logic (LTL) is a branch of logic responsible for representing and reasoning about modalities in reference to time. 
 
-As an approach for program verification, a formal system of temporal logic was suggested for both sequential and parallel programs~\cite{pnueli1977temporal}. LTL can be used as a method of model-checking~\cite{dwyer1998property} using its patterns as a form of property specification. It includes patterns such as "always", "finally", "until", "eventually", and others, which can be useful in the creation of invariants for program verification.
+As an approach for program verification, a formal system of temporal logic was suggested for both sequential and parallel programs~\cite{pnueli1977temporal}. LTL can be used as a method of model-checking~\cite{dwyer1998property} using its patterns as a form of property specification. It includes patterns such as "always", "finally", "until", "eventually", and others, which can be useful in the creation of invariants for program verification of robotics systems.
 
 % ------------------------------------------------------------------------------
 % Property Specification
@@ -41,6 +43,8 @@ As an approach for program verification, a formal system of temporal logic was s
 \label{sec:robottesting}
 
 Some research on the importance of invariants checking (subsection 2.3.1) and runtime testing and the difficulties of implementing it already exist (subsection 2.3.2). As well as some tools that already try to implement similar runtime verification concepts (subsection 2.3.3).
+
+\af{Não concordo com as subsecções. Runtime Monitoring of invariants e invariants não é a mesma coisa? Não são comparáveis para estarem ao mesmo nível no documento. Deviam ser coisas dijuntas.}
 
 \subsection{Invariants}
 
@@ -56,10 +60,13 @@ Implementing runtime monitoring adds load to the simulation. Therefore, not dema
 
 Some challenges in implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
 
-\subsection{Similar work}
+\af{Devia ser uma secção e não subsecção}
+\subsection{Related work}
 
 Similar work on runtime monitoring that integrates with ROS already exists. 
 
-ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} malfunctioning, but it seems unable to express more high-level properties, which is the objective of this work.
+ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} malfunctioning, but it seems unable to express more high-level properties, which is the objective of this work. \af{What are the high-level properties? Can you describe the difference? Or at least give examples of things that are not possible?}
 
-ROSRV~\cite{huang2014rosrv} although able to express more high-level specifications, it is highly complex and, in some way, hard for non-expert users to work with. An intuitive domain-specific language will allow a broader set of users to specify a robotic system's properties.
+ROSRV~\cite{huang2014rosrv} although able to express more high-level specifications, it is highly complex and, in some way, hard for non-expert users to work with. An intuitive domain-specific language will allow a broader set of users to specify a robotic system's properties. \af{Why is it hard for non-experts? This needs to be explained!}
+
+\af{Para cada uma destas ferramentas tens de ir com muito mais detalhe a dizer o que fazem, como funcionam e quais (e porque das) as suas limitações!. }
