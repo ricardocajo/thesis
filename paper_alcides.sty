@@ -1,0 +1,294 @@
+\usepackage{courier}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{xspace}
+
+
+\lstset { %
+language=Java,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+columns=fullflexible,
+basicstyle=\tt\normalsize,
+keywordstyle=[1]\bf,
+keywordstyle=[2]\it,
+xleftmargin=3pt,
+xrightmargin=3pt,
+framesep=3pt
+}
+
+\lstdefinestyle{lam}{%
+    literate={>=}{$\geq$}2
+}
+
+\lstset{aboveskip=10pt,belowskip=10pt}
+
+\newcommand{\botafig}[3][1.0]{%
+	\begin{figure}[tb]
+	\centering
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\caption{#3}
+	\label{fig:#2}
+	\end{figure}
+}
+
+\newcommand{\botafigwide}[3][1.0]{%
+	\begin{figure*}[htb!]
+	\centering
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\caption{#3}
+	\label{fig:#2}
+	\end{figure*}
+}
+
+
+\newcommand{\botafigshort}[3][1.0]{%
+	\begin{figure}[htb]
+	\centering
+	\vspace{-5mm}
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\caption{#3}
+	\label{fig:#2}
+	\vspace{-5mm}
+	\end{figure}
+}
+
+
+\newcommand{\botafignomargins}[3][1.0]{%
+	\begin{figure}[htb]
+	\centering
+	\vspace{-15mm}
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\vspace{-5mm}
+	\caption{#3}
+	\vspace{-6mm}
+	\label{fig:#2}
+	\end{figure}
+}
+
+
+\newcommand{\botafigtudo}[3][1.0]{%
+	\begin{figure*}[!htbp]
+	\centering
+	\vspace{0mm}
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\caption{#3}
+	\label{fig:#2}
+	\end{figure*}
+}
+
+\newcommand{\botafigwrapped}[4][1.0]{%
+	\begin{wrapfigure}{r}{#2\textwidth}
+	\begin{center}
+	\vspace{-15mm}
+	\scalebox{#1}{\includegraphics{figures/#3}}
+	\end{center}
+	\vspace{-5mm}
+	\caption{#4}
+	\vspace{-6mm}
+	\label{fig:#3}
+	\end{wrapfigure}
+}
+
+\newcommand{\botagraphwrapped}[4][1.0]{%	
+	\begin{wrapfigure}{rI}{#2\textwidth}
+	\begin{center}
+	\vspace{-12mm}
+	\scalebox{#1}{\includegraphics{analysis/pall/#3}}
+	\end{center}
+	\vspace{-6mm}
+	\caption{#4}
+	\vspace{-6mm}
+	\label{fig:#3}
+	\end{wrapfigure}
+
+}
+
+\newcommand{\botagraph}[2]{%
+	\begin{figure}[!ht]
+	\centering
+    \includegraphics{analysis/pall/#1}
+	\caption{#2}
+	\label{fig:#1}
+	\end{figure}
+}
+
+\newcommand{\botagrapht}[4]{%
+	\begin{figure}[!ht]
+    \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics{analysis/pall/#1}
+	\caption{#2}
+	\label{fig:#1}
+    \end{minipage}
+    %\end{figure}
+	%\begin{figure}[!ht]
+    \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics{analysis/pall/#3}
+	\caption{#4}
+	\label{fig:#3}
+    \end{minipage}
+    \end{figure}
+}
+
+\newcommand{\botagraphs}[2]{%
+	\begin{figure}[!ht]
+	\centering
+    \includegraphics{analysis/#1}
+	\caption{#2}
+	\label{fig:#1}
+	\end{figure}
+}
+
+
+
+\newcommand{\botagraphtwide}[4]{%
+	\begin{figure}[!ht]
+    \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics{analysis/pall/#1}
+	\caption{#2}
+	\label{fig:#1}
+    \end{minipage}
+    
+    \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics{analysis/pall/#3}
+	\caption{#4}
+	\label{fig:#3}
+    \end{minipage}
+    \end{figure}
+}
+
+
+
+\newcommand{\botafigaqui}[3][1.0]{%
+	\begin{figure}[!ht]
+	\centering
+	\scalebox{#1}{\includegraphics{figures/#2}}
+	\caption{#3}
+	\label{fig:#2}
+	\end{figure}
+}
+
+
+\newcommand{\botatab}[4]{
+	\begin{table}[ht]
+    % \def\arraystretch{1.5}%
+    % \setlength\tabcolsep{3pt}
+	\centering
+	{
+	\begin{tabular}{#1}
+	#4
+	\end{tabular}
+	}
+	\vspace{3mm}
+	\caption{#3}
+	\label{table:#2}
+	\end{table}
+}
+
+\newcommand{\botatabwrapped}[4]{
+	\begin{floatingtable}[rflt]{0.8\textwidth}{
+	\begin{tabular}{#1}
+	#4
+	\end{tabular}
+	}
+	\caption{#3}
+	\label{table:#2}
+	\end{floatingtable}
+}
+
+
+\newcommand{\botatablargo}[4]{
+	\begin{table*}[ht]
+	\centering
+	\vspace{0mm}
+	{\small
+	\begin{tabular}{#1}
+	#4
+	\end{tabular}
+	}
+	\caption{#3}
+	\label{table:#2}
+	\end{table*}
+}
+
+\newcommand{\twopartdef}[4]
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+
+\newcommand{\GeneticEngine}{{Genetic Engine\xspace}}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{listings}
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+%    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,               
+    frame=single,
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\usepackage{ifthen}
+%\usepackage{amssymb}
+\newboolean{showcomments}
+\setboolean{showcomments}{true} % toggle to show or hide comments
+\ifthenelse{\boolean{showcomments}}
+  {\newcommand{\nb}[2]{
+    \fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize#1}
+    {\sf\small$>$\textit{#2}$<$}
+   }
+   \newcommand{\version}{\emph{\scriptsize$-$working$-$}}
+  }
+  {\newcommand{\nb}[2]{}
+   \newcommand{\version}{}
+  }
+
+
+\newcommand\af[1]{\nb{Alcides}{#1}}
+
+\newcommand\todo[1]{\nb{Todo}{#1}}
+\newcommand\refmiss{\fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize{Needs Citation}\xspace}}
+% end Macros for proof-reading
+
+

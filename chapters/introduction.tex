@@ -4,8 +4,9 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-This thesis aims at exploring a possible solution for automation in the testing of robotic systems through the medium of a domain-specific language (DSL) and simulation software.
+This thesis aims to explore a possible solution for automation in the testing of robotic systems through the a domain-specific language (DSL) and simulation software.
 
+\af{Substitui todas as referências a capítulos, secções, figuras e tabelas por }
 This chapter intends to introduce the motivation for this work (Section 1.1), present the problem statements of such an approach (Section 1.2), discuss the objectives (Section 1.3), present the expected contributions (Section 1.4), and finally summarize the structure of the rest of the document (Section 1.5).
 
 
@@ -14,7 +15,7 @@ This chapter intends to introduce the motivation for this work (Section 1.1), pr
 \section{Motivation}
 \label{sec:motivation}
 
-Robotics already significantly impact our current society, industrially, for instance, in medicine and agriculture, or leisurely in contests or personal use. Robotics often take critical roles like the example of robot arms in car assembly lines or autonomous farms. The tendency is for robot usage to keep growing at a global level. 
+Robotics already significantly impact our current society, in industry, in medicine, in agriculture, or leisurely in sports contests or personal use. Robotics often take critical roles like the example of robot arms in car assembly lines or autonomous farms. The tendency is for robot usage to keep growing at a global level. 
 
 Robotic Systems are non-deterministic, mainly because robots interact directly with the real world. Testing software in such environments is complex, as many variables can change, and verifying the success of a task or movement may not be possible from the robot's perspective, and external monitoring may be required.
 
@@ -24,13 +25,13 @@ Current practices in testing robot software mainly involve field testing, simula
 \section{Problem Statement}
 \label{sec:problem}
 
-The multiple challenges in robot testing influence planning how to test a robot because there are tradeoffs among choices.
+These multiple challenges in robot testing influence the planning for testing a robot because there are tradeoffs among choices.
 
-Using simulation-based testing, the developers can take advantage of real values of objects' attributes to compare with what the robot system perceives. Using this alleyway, it is possible to, in a way, surpassing the need for human-in-the-loop testing. 
+Using simulation-based testing, developers can take advantage of real values of objects' attributes to compare with what the robot system perceives. Using this alleyway, it is possible to, in a way, surpassing the need for human-in-the-loop testing. 
  
 While simulation-based tests are a promising approach for automation, there is still distrust in the precision and validity of the results. As a result, simulation-based autonomous testing is barely used due to reliability and factors like cost and complexity. Due to these factors, despite being dangerous, sometimes expensive, or work-intensive, real-life robot testing or other methods are still the main choices. The resulting product is a lack of quality in the software across projects.
 
-When developing a DSL for simulation-based autonomous tests, problems like what components to monitor and how to express them arise. Having a DSL to specify a robotic system's properties can be useful. However, there is a need to control its complexity and accessibility, or it can become a burden in the testing process.
+In this thesis, we address the problem of defining automated tests for robotics systems.
 
 
 % ------------------------------------------------------------------------------
@@ -40,7 +41,7 @@ When developing a DSL for simulation-based autonomous tests, problems like what 
 
 The ultimate goal of this thesis is to remove the need for human-in-the-loop testing of robotic systems by studying a possible solution for automation in simulation-based tests.
 
-This work aims to provide developers with a way to verify their robotic systems' temporal and positional properties automatically. We propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
+This work aims to provide developers with a way to verify their robotic systems' temporal and positional properties automatically. To this end, we propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
 
 The DSL should allow describing a robotic system's properties simply and intuitively while simultaneously expressing relevant temporal and positional arguments between robots components and objects in the simulation.
 
@@ -63,6 +64,7 @@ The expected contributions of this thesis are below enumerated.
 
 The document is organized as follows:
 
+\af{Cref aqui também.}
 \begin{itemize}
     \item Chapter 2 - Background \& Related Work:
     \item Chapter 3 - Motivational Example
