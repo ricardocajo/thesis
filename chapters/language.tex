@@ -8,9 +8,11 @@
 
 In this chapter, the structure and intricacies of the DSL are presented. *Explain each section*
 
+
 % ------------------------------------------------------------------------------
 % High-Level Notations
 \section{High Level Notations}
+\label{sec:highlevelnotations}
 
 \begin{itemize}
 \item \textbf{Property -} A property represents a temporal specification or a blend of temporal specifications between components.
@@ -19,9 +21,11 @@ In this chapter, the structure and intricacies of the DSL are presented. *Explai
 \item \textbf{Association -} An association serves as a way to create program variables.
 \end{itemize}
 
+
 % ------------------------------------------------------------------------------
 % Temporal Keywords
 \subsection{Temporal Keywords}
+\label{ssec:tempkeywords}
 
 We consider not only LTL basic operators but also some common shortcuts for useful combinations of such operators, like \textit{after\_until}.
 
@@ -34,11 +38,11 @@ We consider not only LTL basic operators but also some common shortcuts for usef
 \item {\bfseries after\_until X, Y, Z} - after the event X is observed, Z has to hold on the entire subsequent path up until Y happens. At that position, Z does not have to hold anymore;
 \end{itemize}
 
-%\noindent It is also possible to reference previous states of variables, using \textbf{\lstinline|@{X, -y}|}, representing the value of variable \lstinline|X| at time \lstinline|-y|.
 
 % ------------------------------------------------------------------------------
 % Temporal value
 \subsection{Temporal value}
+\label{ssec:tempvalues}
 
 It is also possible to reference previous variable states:
 \begin{equation}
@@ -46,9 +50,11 @@ It is also possible to reference previous variable states:
 \end{equation}
 This will represent the value of the variable X in the point in time -y.
 
+
 % ------------------------------------------------------------------------------
 % Functions
 \subsection{Simulation primivitives}
+\label{ssec:simprimitives}
 
 To support comparing the internal state of the robotic system with the environment, we provide basic primitives in the language to refer to the simulation environment:
 
@@ -62,21 +68,27 @@ To support comparing the internal state of the robotic system with the environme
 \item {\bfseries X.localization\_error} - The difference between the robot's perception of its position and the actual position in the simulation;
 \end{itemize}
 
+
 % ------------------------------------------------------------------------------
 % Operands
 \section{Operands}
+\label{sec:operands}
 
 Besides the already mentioned operands, \textit{Temporal values}, \textit{Simulation primivitives}, and \textit{Temporal Keywords}, the DSL also supports both Integer and Float values, Booleans, and declared variables.
+
 
 % ------------------------------------------------------------------------------
 % Operators
 \section{Operators}
+\label{sec:operators}
 
 The DSL supports operators to correlate components. The operators are \textit{+} (addition), \textit{-} (subtraction), \textit{*} (multiplication), \textit{/} (division), \textit{==} (equals), \textit{!=} (different), \textit{>} (greater than), \textit{>=} (greater or equal than), \textit{<} (lower than), \textit{<=} (lower or equal than), \textit{and} (conjunction), \textit{or} (disjunction), \textit{implies} (implication), and for any comparison operator X \textit{X{y}} - the values being compared will have an error margin of y (Example: Z =={0.05} Y).
+
 
 % ------------------------------------------------------------------------------
 % Protected Variables
 \section{Protected Variables}
+\label{sec:protectedvariables}
 
 Protected variables are variable names restricted to set determined monitoring parameters.
 
@@ -86,9 +98,11 @@ Protected variables are variable names restricted to set determined monitoring p
 
 \_margin\_ - Set the error margin for comparisons
 
+
 % ------------------------------------------------------------------------------
 % Topic declaration
 \section{Topic declaration}
+\label{sec:declarations}
 
 In order to relate robot components with the simulation, the developer can declare the relevant \textit{topics}.
 
@@ -96,17 +110,15 @@ The language cannot inherently have a way to interact with specific components o
 
 \textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
 
-%\vspace{2mm}
-
 \texttt{decl robot\_position /odom Odometry.pose.pose.position}
+
 
 % ------------------------------------------------------------------------------
 % Model robots
 \section{Model robots}
+\label{sec:models}
 
 A set of specific topics can be modeled for the robot, like \textit{position} or \textit{velocity}. The compiler will use these to call specific functions that need this information from the robot's perspective.
-
-%\vspace{2mm}
 
 \texttt{model robot1:}
 
@@ -114,13 +126,13 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
 
 \texttt{    ;}
 
-%\vspace{2mm}
-
 \texttt{never robot1.localization error > 0.002}
+
 
 % ------------------------------------------------------------------------------
 % Grammar
 \section{Grammar}
+\label{sec:grammar}
 
 \begin{bnfgrammar}
     <program> %: Start
@@ -144,7 +156,7 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
     | decl name name <msgtype>
     ;;
     <model> ::= 
-    model name $\colon$ <modelargs> ; %TODO escape :
+    model name $\colon$ <modelargs> ;
     ;;
     <modelargs> ::= 
     <name> topic\_name <msgtype>
@@ -213,3 +225,62 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
     <temporalvalue> ::= 
     @ { name , integer }
 \end{bnfgrammar}
+
+
+% ------------------------------------------------------------------------------
+% DSL Usage Examples
+\section{DSL Usage Examples}
+\label{sec:languageexamples}
+To validate the expressive power of our language, we present examples of expressions inspired by real-world scenarios.
+
+
+% ------------------------------------------------------------------------------
+% Vehicle Maximum Speed
+\subsection{Vehicle Maximum Speed}
+\label{sec:speedexample}
+
+Some robots have a maximum safe speed at which they can move. Sometimes this limit is imposed by law, but some other times by physical constraints.
+
+\textit{The robot velocity will never be above 2 for the duration of the simulation;}
+
+\texttt{never robot.velocity > 2.0}
+
+
+% ------------------------------------------------------------------------------
+% Follow the Leader
+\subsection{Follow the Leader}
+\label{ssec:followexample}
+
+The first robot being above 1 velocity implies that the second robot is at least at 0.8 distance from the first robot. Up until the first robot reaches a particular location;
+
+\texttt{until (robot1.position.x > 45 and robot1.position.y > 45), always (robot1.velocity > 1 implies robot2.distance.robot1 > 0.8)}
+
+
+% ------------------------------------------------------------------------------
+% Localization error
+\subsection{Localization error}
+\label{ssec:localizationexample}
+
+The localization error (difference between the robot's perception of its location and the actual simulation location) of the robot is never above a specific value.
+
+\texttt{model robot1:}
+
+\texttt{    position /odom Odometry.pose.pose.position}
+
+\texttt{    ;}
+
+\texttt{never robot1.localization error > 0.002}
+
+
+% ------------------------------------------------------------------------------
+% Drone height rotors control
+\subsection{Drone height rotors control}
+\label{ssec:rotorsexample}
+
+After a drone is at a certain altitude, both rotors always have the same velocity up until the drone decreases to a certain altitude.
+
+\texttt{decl rotor1\_vel /drone\_mov/rotor1 Vector3.linear.x}
+
+\texttt{decl rotor2\_vel /drone\_mov/rotor2 Vector3.linear.x}
+
+\texttt{after\_until drone.position.z > 5, drone.position.z < 5, rotor1\_vel == rotor2\_vel}
