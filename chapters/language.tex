@@ -4,15 +4,15 @@
 \chapter{Specification Language for Robotics Properties}
 \label{chap:language}
 
-\af{This should be a section of the Approach, where you start by defining the overall approach you take, the architecture, an example, and then a section with the description of the language.}
-
-In this chapter, the structure and intricacies of the DSL are presented. *Explain each section*
+In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in (\autoref{sec:languagenotations}). The DSL grammar is written in the Backus-Naur Form (\autoref{sec:grammar}). Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
 
 
 % ------------------------------------------------------------------------------
-% High-Level Notations
-\section{High Level Notations}
-\label{sec:highlevelnotations}
+% Language Notations
+\section{Language Notations}
+\label{sec:languagenotations}
+
+The high-level concepts that can be created in the language are:
 
 \begin{itemize}
 \item \textbf{Property -} A property represents a temporal specification or a blend of temporal specifications between components.
@@ -71,24 +71,24 @@ To support comparing the internal state of the robotic system with the environme
 
 % ------------------------------------------------------------------------------
 % Operands
-\section{Operands}
-\label{sec:operands}
+\subsection{Operands}
+\label{ssec:operands}
 
 Besides the already mentioned operands, \textit{Temporal values}, \textit{Simulation primivitives}, and \textit{Temporal Keywords}, the DSL also supports both Integer and Float values, Booleans, and declared variables.
 
 
 % ------------------------------------------------------------------------------
 % Operators
-\section{Operators}
-\label{sec:operators}
+\subsection{Operators}
+\label{ssec:operators}
 
 The DSL supports operators to correlate components. The operators are \textit{+} (addition), \textit{-} (subtraction), \textit{*} (multiplication), \textit{/} (division), \textit{==} (equals), \textit{!=} (different), \textit{>} (greater than), \textit{>=} (greater or equal than), \textit{<} (lower than), \textit{<=} (lower or equal than), \textit{and} (conjunction), \textit{or} (disjunction), \textit{implies} (implication), and for any comparison operator X \textit{X{y}} - the values being compared will have an error margin of y (Example: Z =={0.05} Y).
 
 
 % ------------------------------------------------------------------------------
 % Protected Variables
-\section{Protected Variables}
-\label{sec:protectedvariables}
+\subsection{Protected Variables}
+\label{ssec:protectedvariables}
 
 Protected variables are variable names restricted to set determined monitoring parameters.
 
@@ -101,8 +101,8 @@ Protected variables are variable names restricted to set determined monitoring p
 
 % ------------------------------------------------------------------------------
 % Topic declaration
-\section{Topic declaration}
-\label{sec:declarations}
+\subsection{Topic declaration}
+\label{ssec:declarations}
 
 In order to relate robot components with the simulation, the developer can declare the relevant \textit{topics}.
 
@@ -115,8 +115,8 @@ The language cannot inherently have a way to interact with specific components o
 
 % ------------------------------------------------------------------------------
 % Model robots
-\section{Model robots}
-\label{sec:models}
+\subsection{Model robots}
+\label{ssec:models}
 
 A set of specific topics can be modeled for the robot, like \textit{position} or \textit{velocity}. The compiler will use these to call specific functions that need this information from the robot's perspective.
 

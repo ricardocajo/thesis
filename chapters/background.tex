@@ -2,65 +2,83 @@
 \chapter{Background \& Related Work}
 \label{chap:background}
 
-This chapter gives an overview of the software adopted while developing this work (section 2.1), followed by a brief explanation of Linear Temporal Logic (section 2.2), and finally shines some light on the already existing similar work on the subject (section 2.3).
+This chapter gives an overview of the background software adopted while developing this work (\autoref{sec:background}), and shines some light on the already existing similar work and adopted techniques on the subject (\autoref{sec:relatedwork}).
 
+
+% ------------------------------------------------------------------------------
+% Background
 \section{Background}
+\label{sec:background}
 
-This section provides some background on the used software and the reason for its choice, what the Robot Operating System is (subsection 2.1.1), and the simulation software adopted (subsection 2.1.2).
+This section provides some background on the used software and the reason for its choice, what the Robot Operating System is (\autoref{ssec:ros}), and the simulation software adopted (\autoref{ssec:gazebo}).
+
 
 % ------------------------------------------------------------------------------
 % ROS
 \subsection{Robot Operating System}
-\label{sec:ros}
+\label{ssec:ros}
 
 The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components through messages sent through communication channels (\textit{topics}).
 
 ROS has a modular architecture and other advantages built with the purpose of cross-collaboration and easy development. For all these reasons, ROS is used by hundreds of companies and research labs.
 
-The ROS ecosystem is built so that the majority of the projects depend on a specific set of packages. Literature states that around eighty-two percent of ROS application rely on packages release by a small subset of groups~\cite{9240632}.
+The ROS ecosystem is built so that the majority of the projects depend on a specific set of packages. Literature states that around eighty-two percent of ROS applications rely on packages released by a small subset of groups~\cite{9240632}.
+
 
 % ------------------------------------------------------------------------------
 % Gazebo
 \subsection{Gazebo}
-\label{sec:gazebo}
+\label{ssec:gazebo}
 
 Robotic systems simulation is an essential tool for testing robots' behavior. For this reason, Gazebo~\cite{koenig2004design} started with the idea of a high-fidelity simulator to simulate robots in any environment under mixed conditions.
 
 Gazebo is an open-source 3D simulator that supports tools like sensors simulation, mesh management, and actuators control under different physics engines, among others, which makes it a simulator that very distinct robotic systems can use.
 
+
 % ------------------------------------------------------------------------------
-% Property Specification
+% Related Work
 \section{Related Work}
-\label{sec:robottesting}
+\label{sec:relatedwork}
 
-Some research on the importance of invariants checking (subsection 2.3.1) and runtime testing and the difficulties of implementing it already exist (subsection 2.3.2). As well as some tools that already try to implement similar runtime verification concepts (subsection 2.3.3).
+This section shows some research on runtime testing, the different techniques, and the difficulties of implementing it already exist (\autoref{ssec:runtimetesting}). The importance of Invariant specification and its relation to Linear Temporal Logic (LTL) (\autoref{ssec:ltlinvariants}). Some monitoring frameworks have already tried to implement similar runtime verification concepts (\autoref{ssec:monitoringframeworks}).
 
-\af{Não concordo com as subsecções. Runtime Monitoring of invariants e invariants não é a mesma coisa? Não são comparáveis para estarem ao mesmo nível no documento. Deviam ser coisas dijuntas.}
 
-\subsection{Invariants}
+% ------------------------------------------------------------------------------
+% Runtime Monitoring
+\subsection{Runtime Testing}
+\label{ssec:runtimetesting}
+
+Due to the unforeseen circumstances mentioned when executing robotic systems, runtime testing, although sometimes time-consuming, may be advantageous when identifying errors in these types of systems.
+
+Implementing runtime monitoring adds load to the simulation. Therefore, not demanding excessive resources is essential when taking this approach.
+
+Some challenges in implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
+
+*TODO mention methods of runtime monitoring (mine and others)*
+*mythra paper -> other types of machine learning mention it*
+
+
+% ------------------------------------------------------------------------------
+% Linear Temporal Logic and Invariants
+\subsection{Linear Temporal Logic and Invariants}
+\label{ssec:ltlinvariants}
 
 An invariant represents a property that holds through the execution of the system. Having a set of invariants for a robotic system and asserting them at runtime makes it able to prove the correctness of the system.
 
 Research on invariant checking~\cite{zizyte2021importance} shows that a considerable amount of bugs on autonomous robotic systems can be avoided when representing safety violations of systems and monitoring them.
 
-
-\section{Linear Temporal Logic}
-\label{sec:ltl}
+*TODO change text so Invariants are -> specifying the invariants and system for checking*
+*integrate ltl with invariants for system checking*
 
 Linear temporal logic (LTL) is a branch of logic responsible for representing and reasoning about modalities in reference to time. 
 
 As an approach for program verification, a formal system of temporal logic was suggested for both sequential and parallel programs~\cite{pnueli1977temporal}. LTL can be used as a method of model-checking~\cite{dwyer1998property} using its patterns as a form of property specification. It includes patterns such as "always", "finally", "until", "eventually", and others, which can be useful in the creation of invariants for program verification of robotics systems.
 
 
-\subsection{Runtime Monitoring}
-
-Due to the unforeseen circumstances mentioned when executing robotic systems, runtime monitoring, although sometimes time-consuming, may be advantageous when identifying errors in these types of systems.
-
-Implementing runtime monitoring adds load to the simulation. Therefore, not demanding excessive resources is essential when taking this approach.
-
-Some challenges in implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
-
-\subsection{Tools}
+% ------------------------------------------------------------------------------
+% Monitoring Frameworks
+\subsection{Monitoring Frameworks}
+\label{ssec:monitoringframeworks}
 
 Similar work on runtime monitoring that integrates with ROS already exists. 
 

@@ -4,11 +4,13 @@
 \chapter{Monitoring}
 \label{chap:monitoring}
 
-This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained (section 6.1), then the generated file and some of its specifications are described (section 6.2), and finally, the shown error messages are illustrated (section 6.3).
+This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained (\autoref{sec:runtimemonitoring}), then the generated file and some of its specifications are described (\autoref{sec:generatedfile}), and finally, the shown error messages are illustrated (\autoref{sec:errormessages}).
+
 
 % ------------------------------------------------------------------------------
-% Monitor
+% Runtime Monitoring
 \section{Runtime Monitoring}
+\label{sec:runtimemonitoring}
 
 After writing all the desired robotic systems specifications, the file needs to be compiled to generate the monitoring python file. Currently, to compile a specification file, one has to do it through the console under the same directory of the \textit{language.py} file. As for the command:
 
@@ -29,6 +31,7 @@ The monitoring file can now run as an independent ROS node, integrated into a la
 % ------------------------------------------------------------------------------
 % Generated File
 \section{Generated File}
+\label{sec:generatedfile}
 
 Declare the needed subscribers and use ApproximateTimeSynchronizer to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, use the ROS time.
 
@@ -46,6 +49,7 @@ Verify the properties using the saved states and calling each created function. 
 % ------------------------------------------------------------------------------
 % Error Messages
 \section{Error Messages}
+\label{sec:errormessages}
 
 An error message starts by stating the line in the specification file which resulted in an error and showing the specification itself.
 
