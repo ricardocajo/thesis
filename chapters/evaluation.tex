@@ -26,12 +26,12 @@ To replicate each bug, a \textit{demon} node is inserted into the system that in
 
 \begin{figure}
 \includegraphics[width=\textwidth]{images/normal_flow.pdf}
-\caption{Normal flow.} \label{fig:normalflow}
+\caption{The normal runtime flow of the system.} \label{fig:normalflow}
 \end{figure}
     
 \begin{figure}
 \includegraphics[width=\textwidth]{images/demon_flow.pdf}
-\caption{Demon flow.} \label{fig:demonflow}
+\caption{The flow of the system when the adding the demon node.} \label{fig:demonflow}
 \end{figure}
 
 When injecting a bug, all the data before addressed to the robots' \textit{/cmd\_vel} topic is remapped to a new topic called \textit{/cmd\_vel\_original}, the \textit{demon} node subscribes to this new topic and modifies the data before sending it to the robots' \textit{/cmd\_vel} topic so that the robot behaves like the expected bug. 
@@ -54,13 +54,14 @@ This section goes through the property specification and runtime monitoring for 
 
 DSL property specification:
 
-\texttt{decl angular\_vel\_robot\_perception cmd\_vel\_original Twist.angular.z}
+First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
-\textit{T.}
+\texttt{decl angular\_vel\_robot\_perception cmd\_vel\_original Twist.angular.z}
 
 \texttt{after turtlebot3.velocity.angular.z < 0, never angular\_vel\_robot\_perception > 0}
 
-\textit{T.}
+\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation z parameter of the angular velocity is less than zero, then in the second section, never the z parameter of the angular velocity of the command given to the robot is more than zero.}
 
 \textit{Demon} node code and behavior:
 
@@ -85,12 +86,16 @@ DSL property specification:
                 self.cmd_vel_pub.publish(self.twist)
 \end{lstlisting}
 
-\textit{T.}
+The \textit{demon} node checks when the given robot's command linear velocity is below \textit{0.012} and injects the opposite value of the z parameter of the angular velocity to the actual robot's velocity in the simulation.
 
+Now when giving commands to the robot, if the given velocity is below \textit{0.012} and we make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
 
-*explain what i do with teleop?*
-
-*show output*
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm,height=2cm,keepaspectratio,]{images/erreval1.png}
+\caption{Calculation Error Inverts Turning Direction bug error message.} \label{fig:erreval1}
+\end{center}
+\end{figure}
 
 
 % ------------------------------------------------------------------------------
@@ -100,13 +105,14 @@ DSL property specification:
 
 DSL property specification:
 
-\texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
+First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
-\textit{T.}
+\texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
 
 \texttt{after vel\_robot\_perception > 0, never turtlebot3.velocity =={0.005} 0}
 
-\textit{T.}
+\textit{Translating into natural language, the property states in the first section that after the given robot's commands x parameter of the linear velocity is greater than zero, then in the second section never, the actual simulation's linear velocity is equal to zero.}
 
 \textit{Demon} node code and behavior:
 
@@ -131,12 +137,16 @@ DSL property specification:
                 self.cmd_vel_pub.publish(self.twist)
 \end{lstlisting}
 
-\textit{T.}
+The \textit{demon} node checks when the given robot's command linear velocity is below \textit{0.015} and injects a value of \textit{0.0} to the linear velocity of the actual robot's velocity in the simulation.
 
+Now when giving commands to the robot, if the given velocity is below \textit{0.015} the robot will stay stationary. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval2}.
 
-*explain what i do with teleop?*
-
-*show output*
+\begin{figure}
+\begin{center}
+\includegraphics[width=10cm,height=3cm,keepaspectratio,]{images/erreval2.png}
+\caption{Robot Getting Stuck When Auto-docking bug error message.} \label{fig:erreval2}
+\end{center}
+\end{figure}
 
 
 % ------------------------------------------------------------------------------
@@ -146,13 +156,14 @@ DSL property specification:
 
 DSL property specification:
 
-\texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
+First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
-\textit{T.}
+\texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
 
 \texttt{after turtlebot3.velocity.linear.x < 0, never vel\_robot\_perception > 0}
 
-\textit{T.}
+\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation x parameter of the linear velocity is less than zero, then in the second section, never the x parameter of the linear velocity of the command given to the robot is more than zero.}
 
 \textit{Demon} node code and behavior:
 
@@ -177,9 +188,13 @@ DSL property specification:
                 self.cmd_vel_pub.publish(self.twist)
 \end{lstlisting}
 
-\textit{T.}
+The \textit{demon} node checks when the given robot's command linear velocity is above \textit{0.03} and injects the opposite value of the x parameter of the linear velocity to the actual robot's velocity in the simulation.
 
+Now when giving commands to the robot, if the given velocity is above \textit{0.03}, the robot will start moving backward. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval3}.
 
-*explain what i do with teleop?*
-
-*show output*
+\begin{figure}
+\begin{center}
+\includegraphics[width=10cm,height=3cm,keepaspectratio,]{images/erreval3.png}
+\caption{Unexpected Movement Due to Wrong Calculation bug error message.} \label{fig:erreval3}
+\end{center}
+\end{figure}
