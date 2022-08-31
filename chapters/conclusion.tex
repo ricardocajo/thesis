@@ -2,6 +2,14 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 
-*This is the paper conclusion*
 
-The proposed approach can express some interesting scenarios that developers care about. We are expanding our examples to include bugs found~\footnote{\url{https://github.com/robust-rosin/robust}} in real work projects and from a survey, we are conducting with expert developers. Our development is available online~\footnote{\url{https://ricardocajo.github.io/error-monitor-ros-gazebo}} for those that want to experiment with it. We also intend on expanding the primitives with more simulator information or with the possibility of integrating sensors for supporting field testing in alternative to simulation.
+Due to the fact that robots interact with the real world, robotic systems are unpredictable. Coming up with a reliable and efficient method for automatic robot testing is a challenge, one of the reasons being that verifying the success of a task may not be possible from the robot's perspective. Current practices in testing robot software mainly require a human to analyze the robot's behavior to determine its correctness, one way of overcoming this problem is with some other type of automatic external monitoring.
+
+Our approach relies on simulation-based testing so that developers can take advantage of the real values of objects'
+attributes on the simulation to compare with what the robot system perceives, trying in this way to surpass the need for human-in-the-loop testing.
+
+We developed a DSL that allows for the specification of a robotic system's properties, designed from the ROS framework point of view, and that abstracts the underlying LTL system. As a result, it is possible to express relevant temporal and positional arguments between robots' components and objects in the simulation and also properties that relate the internal information of the system with the corresponding information in the Gazebo simulator.
+
+We automated the generation of a monitoring python file that can monitor some behavioral violations of robots in relation to their state or events during a Gazebo simulation.
+
+We have shown that the approach can monitor some interesting scenarios that developers care about. We also present what is still left to do and what future work is still needed.
