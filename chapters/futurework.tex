@@ -2,14 +2,64 @@
 \chapter{Future Work}
 \label{chap:futurework}
 
-*integrate gzscenic and my language*
+In this chapter the possible work left undone or that could improve our study is presented.
+Improvement of the developed work performance is mentioned in \autoref{sec:performancetweaking}, \autoref{sec:validationproposal} mentions the validation of the work, \autoref{sec:bettererrormsg} discusses about the works' error messages, \autoref{sec:integratescenario} talks about the integration with scenario generation tools, and finally \autoref{sec:integratesimulators} mentions the possible integration with other simulators besides Gazebo.
 
-*give better error messages*
 
-*frequency of checking the properties can be modified in some circunstances to not check at every iteration*
+% ------------------------------------------------------------------------------
+% Performance Tweaking
+\section{Performance Tweaking}
+\label{sec:performancetweaking}
 
-*validation of the proposal (which is surprising, as the paper contains print screens of the system output). After the presentation of the rules formulation in the proposed language, the authors immediately turn into the Conclusions, without any experimental data to validate the proposal. This is certainly a major flaw of the paper as, taking into consideration what has been presented and the overall quality of the paper in other aspects (structure, quality of writing, ...), the authors could have gone a litter further in providing some evidence on the effective capabilities of their proposal. As it is, the readers only have a proposal of a language and a couple of examples of rule implementation, but no concrete evidence that the system actually detects any rule violation, when it occurs, nor that it can do so without disturbing the simulation by demanding excessive resources, for instance.*
+The generated code performance can be improved so that the load of the monitoring node on the simulation is reduced.
 
-*Integrate the language with more industrial simulators.*
+For instance, the frequency at which some properties are checked could fluctuate. In some circumstances, a particular property does not need to be checked at every simulation iteration. Implementing some mechanism that can skip certain property checks per iteration will undoubtedly decrease the load the monitoring node will have on the simulation.
 
-*The tests could allow the robot's automatic correction and generation of code. Generating multiple alternatives and automatically evaluating how good they are, improving the code to do what we want.*
+
+% ------------------------------------------------------------------------------
+% Validation of the Proposal
+\section{Validation of the Proposal}
+\label{sec:validationproposal}
+
+Although some evaluation was done for the work done, more evidence and experimental data on the effective capabilities of the proposal are still needed:
+
+\begin{enumerate}
+    \item How expressive is the DSL from the developers' point of view in specifying robots' properties.
+    \item Proof of concept that the system is able to detect the rule violations specified by the DSL.
+    \item Evidence that the monitoring does not disturb the simulation by demanding excessive resources.
+\end{enumerate}
+
+
+% ------------------------------------------------------------------------------
+% Better Error Messages
+\section{Better Error Messages}
+\label{sec:bettererrormsg}
+
+Giving developers helpful and comprehensible error messages is a shared concern amongst all compilers. One can argue that even the best compilers still have space for improvement when talking about delivering good error messages.
+
+Although in our work we gave some thought to the error messages delivery, we believe that a more narrow error localization is still possible.
+
+Also, there was no time for a thorough validation of the proposal, which means that some bugs could be present when delivering the error messages, and the users could have some problems with the delivery or ideas on how to improve it.
+
+
+% ------------------------------------------------------------------------------
+% Integrate the DSL with Scenario Generation Tools
+\section{Integrate the DSL with Scenario Generation Tools}
+\label{sec:integratescenario}
+
+Integrating our work with a scenario generation tool would improve the whole test automation process by creating unpredictable environments on where to test our specified properties, allowing the execution of multiple tests.
+
+For instance, GzScenic~\cite{AfzalGzScenic} is a tool that generates random scenarios for the Gazebo simulator based on a defined model.
+
+
+% ------------------------------------------------------------------------------
+% Integration with other Industrial Simulators
+\section{Integration with other Industrial Simulators}
+\label{sec:integratesimulators}
+
+Our work was developed with the Gazebo simulator in mind, which means the monitoring is currently not compatible with other simulators.
+
+Although Gazebo is widely used, many other simulators are also currently being used. Therefore, adapting our work to integrate other widely used simulators would be helpful for many users that choose not to use Gazebo.
+
+
+%Worth mentioning? - The tests could allow the robot's automatic correction and generation of code. Generating multiple alternatives and automatically evaluating how good they are, improving the code to do what we want.*

@@ -48,14 +48,13 @@ This section shows some research on runtime testing, the different techniques, a
 \subsection{Runtime Testing}
 \label{ssec:runtimetesting}
 
-Due to the unforeseen circumstances mentioned when executing robotic systems, runtime testing, although sometimes time-consuming, may be advantageous when identifying errors in these types of systems.
+Due to the mentioned unforeseen circumstances when executing robotic systems, runtime testing, although sometimes time-consuming, may be advantageous when identifying errors in these types of systems.
 
 Implementing runtime monitoring adds load to the simulation. Therefore, not demanding excessive resources is essential when taking this approach.
 
 Some challenges in implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
 
-*TODO mention methods of runtime monitoring (mine and others)*
-*mythra paper -> other types of machine learning mention it*
+Besides the method of monitoring chosen in this work, runtime testing can be implemented in other ways. For instance, Mithra~\cite{AfzalMithra} is a tool that provides an oracle for automated simulation-based testing relying on machine learning software, more specifically, a three-step multivariate time series clustering.
 
 
 % ------------------------------------------------------------------------------
@@ -66,9 +65,6 @@ Some challenges in implementing such mechanisms are mentioned in the cited paper
 An invariant represents a property that holds through the execution of the system. Having a set of invariants for a robotic system and asserting them at runtime makes it able to prove the correctness of the system.
 
 Research on invariant checking~\cite{zizyte2021importance} shows that a considerable amount of bugs on autonomous robotic systems can be avoided when representing safety violations of systems and monitoring them.
-
-*TODO change text so Invariants are -> specifying the invariants and system for checking*
-*integrate ltl with invariants for system checking*
 
 Linear temporal logic (LTL) is a branch of logic responsible for representing and reasoning about modalities in reference to time. 
 
