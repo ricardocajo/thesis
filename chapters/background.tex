@@ -19,10 +19,19 @@ This section provides some background on the used software and the reason for it
 \label{ssec:ros}
 
 The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components through messages sent through communication channels (\textit{topics}).
+\chris{There are other means of communication in ROS, too!
+I.e., services, actions, and parameters.
+The previous sentence suggests that there isn't.
+Instead, you might want to say that ROS nodes predominantly use topics to communicate via a publish-subscribe architecture.}
 
 ROS has a modular architecture and other advantages built with the purpose of cross-collaboration and easy development. For all these reasons, ROS is used by hundreds of companies and research labs.
+\chris{Add a citation to, e.g., the ROS Industrial website to give some evidence for this claim.}
 
-The ROS ecosystem is built so that the majority of the projects depend on a specific set of packages. Literature states that around eighty-two percent of ROS applications rely on packages released by a small subset of groups~\cite{9240632}.
+The ROS ecosystem is built so that the majority of the projects depend on a specific set of packages.
+\chris{This definitely isn't intentional! ROS has just ended up with a very strong \enquote{standard library} of packages that are used by almost everyone, and a large number of packages that don't belong to that standard library that are rarely used by anyone.
+This is generally seen as a bad thing in software ecosystems, but for this work (and QA generally), it's actually good!
+You can specify the behavior of a smaller standard library and still be able to represent the behavior of a large number of ROS systems.}
+Literature states that around eighty-two percent of ROS applications rely on packages released by a small subset of groups~\cite{9240632}.
 
 
 % ------------------------------------------------------------------------------
@@ -48,6 +57,7 @@ This section shows some research on runtime testing, the different techniques, a
 \subsection{Runtime Testing}
 \label{ssec:runtimetesting}
 
+\chris{What is runtime testing/monitoring? It should be defined here.}
 Due to the mentioned unforeseen circumstances when executing robotic systems, runtime testing, although sometimes time-consuming, may be advantageous when identifying errors in these types of systems.
 
 Implementing runtime monitoring adds load to the simulation. Therefore, not demanding excessive resources is essential when taking this approach.
@@ -64,7 +74,7 @@ Besides the method of monitoring chosen in this work, runtime testing can be imp
 
 An invariant represents a property that holds through the execution of the system. Having a set of invariants for a robotic system and asserting them at runtime makes it able to prove the correctness of the system.
 
-Research on invariant checking~\cite{zizyte2021importance} shows that a considerable amount of bugs on autonomous robotic systems can be avoided when representing safety violations of systems and monitoring them.
+Research on invariant checking~\cite{zizyte2021importance} demonstrates that important safety bugs in real-world autonomous robotic systems can be identified when representing safety violations of systems and monitoring them.
 
 Linear temporal logic (LTL) is a branch of logic responsible for representing and reasoning about modalities in reference to time. 
 
