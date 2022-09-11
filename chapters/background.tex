@@ -18,14 +18,9 @@ This section provides some background on the used software and the reason for it
 \subsection{Robot Operating System}
 \label{ssec:ros}
 
-The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components through messages sent through communication channels (\textit{topics}).
-\chris{There are other means of communication in ROS, too!
-I.e., services, actions, and parameters.
-The previous sentence suggests that there isn't.
-Instead, you might want to say that ROS nodes predominantly use topics to communicate via a publish-subscribe architecture.}
+The Robot Operating System (ROS)~\cite{quigley2009ros} is an open-source framework with a vast collection of libraries, interfaces, and tools designed to help build robot software. ROS provides an abstraction between hardware and software that helps developers easily connect the different robot components predominantly through messages sent through communication channels called \textit{topics} via a publish-subscribe architecture.
 
-ROS has a modular architecture and other advantages built with the purpose of cross-collaboration and easy development. For all these reasons, ROS is used by hundreds of companies and research labs.
-\chris{Add a citation to, e.g., the ROS Industrial website to give some evidence for this claim.}
+ROS has a modular architecture and other advantages built with the purpose of cross-collaboration and easy development~\cite{ros-industrial}. For all these reasons, ROS is used by hundreds of companies and research labs.
 
 The ROS ecosystem is built so that the majority of the projects depend on a specific set of packages.
 \chris{This definitely isn't intentional! ROS has just ended up with a very strong \enquote{standard library} of packages that are used by almost everyone, and a large number of packages that don't belong to that standard library that are rarely used by anyone.

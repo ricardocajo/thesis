@@ -18,8 +18,8 @@ Robotics already significantly impact our current society, in industry, in medic
 
 Robotic Systems are non-deterministic, mainly because robots interact directly with the real world. Testing software in such environments is complex, as many variables can change, and verifying the success of a task or movement may not be possible from the robot's perspective, and external monitoring may be required.
 
-Current practices in testing robot software mainly involve field testing, simulation testing, and log checking and require a human to analyze the robot's behavior to determine whether the behavior is correct. Due to their broad practicality, the quality of software running on robots should be extremely important to us. Robot software, as well as the techniques used to test their quality, are very field-specific and different from the techniques employed in traditional Software Engineering mainly because of their real-world interaction. This peculiarity means automatic tests are barely used in robotics.
-\chris{See below note about adjective and references.}
+Current practices in testing robot software mainly involve field testing, simulation testing, and log checking and require a human to analyze the robot's behavior to determine whether the behavior is correct. Due to their broad practicality, the quality of software running on robots should be extremely important to us. Robot software, as well as the techniques used to test their quality, are very field-specific and different from the techniques employed in traditional Software Engineering mainly because of their real-world interaction. This peculiarity means automatic tests are rarely used in robotics~\cite{9240632,zizyte2021importance}.
+
 Studying possible options for viable automation of tests in robotic systems could lead to an opening on its usage in both research and the industry. Also, allowing for multiple parallel executions of tests not depending on human monitoring could improve the quality of current and future robot software.
 
 
@@ -32,12 +32,10 @@ These multiple challenges in robot testing influence the planning for testing a 
 
 Using simulation-based testing, developers can take advantage of real values of objects' attributes to compare with what the robot system perceives. Using this alleyway, it is possible to, in a way, surpassing the need for human-in-the-loop testing. 
  
-While simulation-based tests are a promising approach for automation, there is still distrust in the precision and validity of the results. As a result, simulation-based autonomous testing is barely used due to reliability and factors like cost and complexity.
-\chris{\enquote{barely used} is a strong claim (\enquote{rarely} is a better adjective) Add a citation (e.g., our ICST '20 and '21 papers on testing) to provide some evidence.}
+While simulation-based tests are a promising approach for automation, there is still distrust in the precision and validity of the results. As a result, simulation-based autonomous testing is rarely used due to reliability and factors like cost and complexity~\cite{9240632,zizyte2021importance}.
 Due to these factors, despite being dangerous, sometimes expensive, or work-intensive, real-life robot testing or other methods are still the main choices. The resulting product is a lack of quality in the software across projects.
 
-In this thesis, we address the problem of defining automated tests for robotics systems.
-\chris{Throughout the document, you should \enquote{I} rather than {we}. This is \emph{your} dissertation!}
+In this thesis, I address the problem of defining automated tests for robotics systems.
 
 
 % ------------------------------------------------------------------------------
@@ -47,9 +45,7 @@ In this thesis, we address the problem of defining automated tests for robotics 
 
 The ultimate goal of this thesis is to remove the need for human-in-the-loop testing of robotic systems by studying a possible solution for automation in simulation-based tests.
 
-\chris{temporal and positional properties are used here before they are ever defined.
-Either define them or use simpler language to explain your objectives at this point (and use the proper terms with a full explanation later in the document).}
-This work aims to provide developers with a way to verify their robotic systems' temporal and positional properties automatically. To this end, we propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
+This work aims to provide developers with a way to verify their robotic systems' properties in relation to their position in a simulation aswell as correlations between current and past events. To this end, I propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
 
 The DSL should allow describing a robotic system's properties simply and intuitively while simultaneously expressing relevant temporal and positional arguments between robots components and objects in the simulation.
 \chris{It would be nice if you stated the design goals of your DSL.}
@@ -66,8 +62,7 @@ Let us consider an autonomous car developer wanting to express that the car alwa
 
 \textit{Translating into natural language, the property states in the first section that after the robot's distance to the stop-sign is below the value of 1 in the simulator, and in the second section that up until the distance is again above 1, then in the third section the robot velocity will eventually be equal to 0.}
 
-\chris{rather than saying that the property compiles to a Python file, more explicitly state that your toolchain compiles the DSL program/spec. to  executable Python code.}
-The specified property compiles to a Python file capable of running as a ROS node. The node listens only to relevant topics and performs the computations to verify the specified property.
+The toolchain compiles the DSL specification to executable Python code that is capable of running as a ROS node. The node listens only to relevant topics and performs the computations to verify the specified property.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{images/error.eps}

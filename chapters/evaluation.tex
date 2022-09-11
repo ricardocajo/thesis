@@ -12,7 +12,7 @@ This chapter introduces the evaluation process of the work. \autoref{sec:evaluat
 \section{Evaluation Overview}
 \label{sec:evaluationoverview}
 
-To evaluate the developed work, we decided to go through a list of already documented ROS bugs and identify three that happen at runtime. After that, we specified a robot's properties in the DSL that should be capable of detecting an error for said bugs while running the system.
+To evaluate the developed work, I decided to go through a list of already documented ROS bugs and identify three that happen at runtime. After that, I specified a robot's properties in the DSL that should be capable of detecting an error for said bugs while running the system.
 
 ROBUST~\cite{robust} is a dataset that documents over two hundred bugs in multiple robots using ROS. After going through the dataset, three bugs were chosen:
 
@@ -54,8 +54,8 @@ This section goes through the property specification and runtime monitoring for 
 
 DSL property specification:
 
-First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
-Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
+First, I declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then I make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
 \texttt{decl angular\_vel\_robot\_perception cmd\_vel\_original Twist.angular.z}
 
@@ -88,7 +88,7 @@ Then we make a correlation between the topic that represents the given commands 
 
 The \textit{demon} node checks when the given robot's command linear velocity is below \textit{0.012} and injects the opposite value of the z parameter of the angular velocity to the actual robot's velocity in the simulation.
 
-Now when giving commands to the robot, if the given velocity is below \textit{0.012} and we make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
+Now when giving commands to the robot, if the given velocity is below \textit{0.012} and I make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
 
 \begin{figure}
 \begin{center}
@@ -105,8 +105,8 @@ Now when giving commands to the robot, if the given velocity is below \textit{0.
 
 DSL property specification:
 
-First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
-Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
+First, I declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then I make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
 \texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
 
@@ -156,8 +156,8 @@ Now when giving commands to the robot, if the given velocity is below \textit{0.
 
 DSL property specification:
 
-First, we declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
-Then we make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
+First, I declare the cmd\_vel\_original topic, which will represent the commands given to the robot.
+Then I make a correlation between the topic that represents the given commands and the topic that represents the actual robot's behavior.
 
 \texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
 

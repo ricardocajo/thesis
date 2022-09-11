@@ -41,7 +41,7 @@ The node executes a loop at a delineated rate, doing the following tasks.
 
 Check if the defined simulation timeout time has reached. 
 
-Save the current simulation state obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and we want to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states. 
+Save the current simulation state obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and the objective is to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states. 
 
 Verify the properties using the saved states and calling each created function. An independent function with the necessary computations for verifying the property is defined for each base property.
 
