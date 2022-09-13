@@ -80,8 +80,8 @@ As an approach for program verification, a formal system of temporal logic was s
 
 Similar work on runtime monitoring that integrates with ROS already exists. 
 
-ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} malfunctioning, but it seems unable to express more high-level properties, which is the objective of this work. \af{What are the high-level properties? Can you describe the difference? Or at least give examples of things that are not possible?}
+ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} malfunctioning, however, it was designed with portability and scalability in mind which means it is highly complex to use and can be not very user-friendly unless you are already knowledgeable of the subject. 
 
-ROSRV~\cite{huang2014rosrv} although able to express more high-level specifications, it is highly complex and, in some way, hard for non-expert users to work with. An intuitive domain-specific language will allow a broader set of users to specify a robotic system's properties. \af{Why is it hard for non-experts? This needs to be explained!}
+ROSMonitoring also doesn't provide a ROS-oriented DSL, instead, it takes advantage of the already built and somewhat generic language Runtime Monitoring Language (RML)~\cite{rml} which doesn't provide the expressiveness and intuitiveness I expect from a ROS-oriented invariant specification language. 
 
-\af{Para cada uma destas ferramentas tens de ir com muito mais detalhe a dizer o que fazem, como funcionam e quais (e porque das) as suas limitações!. }
+ROSRV~\cite{huang2014rosrv} is another tool that provides the runtime monitoring of ROS systems, however, ROSRV implements safety measures while the system is running, interfering with its normal execution. ROSRV lacks documentation on its functioning and usage, also, ROSRV seems to have been discontinued since its last version is only capable of running under ROS Groovy Galapagos, which is no longer supported by ROS since 2014.
