@@ -22,7 +22,7 @@ ROBUST~\cite{robust} is a dataset that documents over two hundred bugs in multip
     \item Unexpected Movement Due to Wrong Calculation~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/1c141a5/1c141a5.bug}} (\autoref{ssec:unexpectedmovementduetowrongcalculation}) - "Kobuki moves using differential drive. Originally, the command velocities (linear and angular) were provided as `short`, and were converted to `short` after each step, even though the calculations yielded floating point numbers. This lead to calculation errors in some special cases, where the robot was supposed to move forward but ended up moving backwards instead."
 \end{itemize}
 
-To replicate each bug, a \textit{demon} node is inserted into the system that interferes with the normal runtime flow and replicates the desired bug. \autoref{fig:normalflow} represents the natural flow of the systems whilst \autoref{fig:demonflow} shows the system flow when trying to replicate a bug with the help of the \textit{demon} node.
+To replicate each bug, a \textit{demon} node is inserted into the system that interferes with the normal runtime flow and replicates the desired bug. \autoref{fig:normalflow} represents the natural flow of the systems whilst \autoref{fig:demonflow} shows the system flow when trying to replicate a bug with the help of the \textit{daemon} node.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{images/normal_flow.pdf}
@@ -31,7 +31,7 @@ To replicate each bug, a \textit{demon} node is inserted into the system that in
     
 \begin{figure}
 \includegraphics[width=\textwidth]{images/demon_flow.pdf}
-\caption{The flow of the system when the adding the demon node.} \label{fig:demonflow}
+\caption{The flow of the system when the adding the daemon node.} \label{fig:demonflow}
 \end{figure}
 
 When injecting a bug, all the data before addressed to the robots' \textit{/cmd\_vel} topic is remapped to a new topic called \textit{/cmd\_vel\_original}, the \textit{demon} node subscribes to this new topic and modifies the data before sending it to the robots' \textit{/cmd\_vel} topic so that the robot behaves like the expected bug. 

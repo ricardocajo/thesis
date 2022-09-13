@@ -4,7 +4,7 @@
 \chapter{Specification Language for Robotics Properties}
 \label{chap:language}
 
-In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in (\autoref{sec:languagenotations}). The DSL grammar is written in the Backus-Naur Form (\autoref{sec:grammar}). Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
+In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in (\autoref{sec:languagenotations}). The DSL grammar is written in the Backus-Naur Form (BNF) (\autoref{sec:grammar}). BNF is a notation used to describe the grammar or syntax of computable languages. Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
 
 
 % ------------------------------------------------------------------------------
@@ -106,11 +106,11 @@ Protected variables are variable names restricted to set determined monitoring p
 
 In order to relate robot components with the simulation, the developer can declare the relevant \textit{topics}.
 
-The language cannot inherently have a way to interact with specific components of a robot because it does not know which topic to get information from. Therefore, the developer needs to declare these specific topics to be able to interact with them.
-
-\textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
+The language cannot inherently have a way to interact with specific components of a robot because it does not know which \textit{topic} to get information from. Therefore, the developer needs to declare these specific topics to be able to interact with them.
 
 \texttt{decl robot\_position /odom Odometry.pose.pose.position}
+
+\textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
 
 
 % ------------------------------------------------------------------------------
@@ -126,8 +126,9 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
 
 \texttt{    ;}
 
-\texttt{never robot1.localization error > 0.002}
+\texttt{never robot1.localization\_error > 0.002}
 
+\textit{The localization\_error function requires the position topic of a robot to be modeled in order to compare it with the actual simulation position}
 
 % ------------------------------------------------------------------------------
 % Grammar
@@ -269,7 +270,7 @@ The localization error (difference between the robot's perception of its locatio
 
 \texttt{    ;}
 
-\texttt{never robot1.localization error > 0.002}
+\texttt{never robot1.localization\_error > 0.002}
 
 
 % ------------------------------------------------------------------------------

@@ -25,7 +25,7 @@ The \textit{language.py} file needs to be run as a python file and be given as a
 
 The given directory for the generated file should be under a ROS workspace for the compilation to succeed. This is because, during the compilation, access to information like the available ROS messages might be necessary.
 
-The monitoring file can now run as an independent ROS node, integrated into a launch file, or using rosrun in the console to execute it.
+The monitoring file can now run as an independent ROS node, integrated into a launch file, or using \textit{rosrun} in the console to execute it.
 
 
 % ------------------------------------------------------------------------------
@@ -33,17 +33,17 @@ The monitoring file can now run as an independent ROS node, integrated into a la
 \section{Generated File}
 \label{sec:generatedfile}
 
-Declare the needed subscribers and use ApproximateTimeSynchronizer to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, use the ROS time.
+The generated monitoring file declares the needed subscribers and uses ApproximateTimeSynchronizer to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, use the ROS time.
 
-The callback function is called every time a new message from one of the subscribers is received. The callback function saves the relevant information for property checking in a global variable. This information serves as a current "screenshot" of the simulation representing its current state.
+A callback function is called every time a new message from one of the subscribers is received. The callback function saves the relevant information for property checking in a global variable. This information serves as a current "screenshot" of the simulation representing its current state.
 
-The node executes a loop at a delineated rate, doing the following tasks. 
+The node executes a loop at a delineated rate, doing the following tasks:
 
-Check if the defined simulation timeout time has reached. 
-
-Save the current simulation state obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and the objective is to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states. 
-
-Verify the properties using the saved states and calling each created function. An independent function with the necessary computations for verifying the property is defined for each base property.
+\begin{enumerate}
+    \item Check if the defined simulation timeout time has reached.
+    \item Save the current simulation state obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and the objective is to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states.
+    \item Verify the properties using the saved states and calling each created function. An independent function with the necessary computations for verifying the property is defined for each base property.
+\end{enumerate}
 
 
 % ------------------------------------------------------------------------------

@@ -4,7 +4,9 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-This thesis aims to explore a possible solution for automation in the testing of robotic systems through the a domain-specific language (DSL) and simulation software.
+This thesis aims to explore a possible solution for automation in the testing of robotic systems through a domain-specific language (DSL) and simulation-based monitoring software.
+
+A DSL is a programming language that is written for a specific domain, it usually provides a higher level of abstraction and is simpler than other languages mainly because they are intended to be used by people knowledgeable of the domain.
 
 This chapter intends to introduce the motivation for this work (\autoref{sec:motivation}), present the problem statements of such an approach (\autoref{sec:problem}), discuss the objectives (\autoref{sec:objectives}), show a motivational example of the developed work (\autoref{sec:motivationalexample}), present the expected contributions (\autoref{sec:contributions}), and finally summarize the structure of the rest of the document (\autoref{sec:structure}).
 
@@ -28,14 +30,16 @@ Studying possible options for viable automation of tests in robotic systems coul
 \section{Problem Statement}
 \label{sec:problem}
 
-These multiple challenges in robot testing influence the planning for testing a robot because there are tradeoffs among choices.
+The multiple challenges in robot testing influence the planning for testing a robot because there are tradeoffs among choices.
 
-Using simulation-based testing, developers can take advantage of real values of objects' attributes to compare with what the robot system perceives. Using this alleyway, it is possible to, in a way, surpassing the need for human-in-the-loop testing. 
+Using simulation-based testing, developers can take advantage of real values of objects' attributes to compare with what the robot system perceives. Using this alleyway, it is possible to, in a way, surpassing the need for human-in-the-loop testing.
+
+Human-in-the-loop testing refers to a method of testing that requires a human to perform a certain task that can't be covered by means of automation or simulation.
  
 While simulation-based tests are a promising approach for automation, there is still distrust in the precision and validity of the results. As a result, simulation-based autonomous testing is rarely used due to reliability and factors like cost and complexity~\cite{9240632,zizyte2021importance}.
 Due to these factors, despite being dangerous, sometimes expensive, or work-intensive, real-life robot testing or other methods are still the main choices. The resulting product is a lack of quality in the software across projects.
 
-In this thesis, I address the problem of defining automated tests for robotics systems.
+In this thesis, I address problems of defining simulation-based automated tests for robotics systems.
 
 
 % ------------------------------------------------------------------------------
@@ -45,7 +49,7 @@ In this thesis, I address the problem of defining automated tests for robotics s
 
 The ultimate goal of this thesis is to remove the need for human-in-the-loop testing of robotic systems by studying a possible solution for automation in simulation-based tests.
 
-This work aims to provide developers with a way to verify their robotic systems' properties in relation to their position (positional properties) in a simulation aswell as correlations between current and past events (temporal properties). To this end, I propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
+This work aims to provide developers with a way to verify their robotic systems' properties in relation to their position in a simulation (positional properties) aswell as correlations between current and past events (temporal properties). To this end, I propose the introduction of a DSL for developers to express their relevant properties. The given properties compile into monitors that can be used in simulation to ensure the correctness of the system. The DSL was designed from the point of view of the Robot Operating System (ROS)~\cite{quigley2009ros} developers and tries to abstract the underlying Linear Temporal Logic (LTL) system. LTL is a branch of logic responsible for representing and reasoning about modalities in reference to time. The DSL allows properties to reason about native ROS constructs, like \textit{topics}, \textit{messages} and simulation information. Thus, it is possible to express properties that relate the internal information of the system with the corresponding information in the simulator.
 
 The DSL should allow describing a robotic system's properties simply and intuitively while simultaneously expressing relevant temporal and positional arguments between robots components and objects in the simulation. For this reason, the expected design goals of the DSL that I believe conform with ROS developers are:
 
@@ -77,7 +81,7 @@ The toolchain compiles the DSL specification to executable Python code that is c
 The flow of the process of monitoring a robotic system is described as follows:
 
 \begin{enumerate}[label=(\roman*)]
-    \item \textbf{Property formalization:} the developer describes in the DSL the properties of the robotic system one wants to monitor in a \texttt{.txt} file extension.
+    \item \textbf{Property formalization:} The developer describes in the DSL the properties of the robotic system one wants to monitor in a \texttt{.txt} file extension.
     \item \textbf{Compilation:} The specified properties are compiled, and a python file is generated capable of running as a ROS node.
     \item \textbf{Monitoring:} The node can be run whenever testing the system and will listen to pertinent topics and perform the computations needed to verify the specified properties.
 \end{enumerate}
