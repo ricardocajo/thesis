@@ -7,11 +7,15 @@
 \end{center}
 \vspace*{1cm} \setlength{\baselineskip}{0.6cm}
 
+\todo{Needs to expand. The PT version is more thorough. Give a couple of examples of critical domains for this. }
 Robotic systems are critical in today's society. A potential failure in a robot may have extraordinary costs, not only financial but can also cost lives.
 
 Current practices in robot testing are vast and involve methods like simulation, log checking, or field testing. However, current practices often require human monitoring to determine the correctness of a given behavior. Automating this analysis can not only relieve the burden from a high-skilled engineer but also allow for massive parallel executions of tests that can detect behavioral faults in the robots. These faults could otherwise not be found due to human error or a lack of time.
     
 I have developed a Domain Specific Language to specify the properties of robotic systems in the Robot Operating System (ROS). Developer written specifications in this language compile to a monitor ROS module that detects violations of those properties in runtime. I have used this language to express the temporal and positional properties of robots, and I have automated the monitoring of some behavioral violations of robots in relation to their state or events during a simulation.
+\todo{Mention LTL as a basis for the language. And it should be more clear that you can relate the internal state of the software with the external state of the simulator.}
+
+\todo{Description of the evaluation, and the results obtained.}
 
 \vfill
 

@@ -4,7 +4,7 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-This thesis aims to explore a possible solution for automation in the testing of robotic systems through a domain-specific language (DSL) and simulation-based monitoring software.
+This thesis explores a possible solution for automation in the testing of robotic systems through a domain-specific language (DSL) and simulation-based monitoring software.
 
 A DSL is a programming language that is written for a specific domain, it usually provides a higher level of abstraction and is simpler than other languages mainly because they are intended to be used by people knowledgeable of the domain.
 
@@ -81,8 +81,8 @@ The toolchain compiles the DSL specification to executable Python code that is c
 The flow of the process of monitoring a robotic system is described as follows:
 
 \begin{enumerate}[label=(\roman*)]
-    \item \textbf{Property formalization:} The developer describes in the DSL the properties of the robotic system one wants to monitor in a \texttt{.txt} file extension.
-    \item \textbf{Compilation:} The specified properties are compiled, and a python file is generated capable of running as a ROS node.
+    \item \textbf{Property formalization:} The developer describes in the DSL the properties of the robotic system one wants to monitor in a text file.
+    \item \textbf{Compilation:} The specified properties are compiled, and a Python file, capable of running as a ROS node, is generated.
     \item \textbf{Monitoring:} The node can be run whenever testing the system and will listen to pertinent topics and perform the computations needed to verify the specified properties.
 \end{enumerate}
 
@@ -108,6 +108,7 @@ The expected contributions of this thesis are below enumerated.
 
 The document is organized as follows:
 
+\todo{Capitalizar o Chapter. Ex: barra Cref em vez de cref.}
 \begin{itemize}
     \item \autoref{chap:background} - Background \& Related Work:
     \item \autoref{chap:language} - Specification Language for Robotics Properties

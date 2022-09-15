@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Language
-\chapter{Specification Language for Robotics Properties}
+\chapter{A Specification Language for Robotics Properties}
 \label{chap:language}
 
 In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in (\autoref{sec:languagenotations}). The DSL grammar is written in the Backus-Naur Form (BNF) (\autoref{sec:grammar}). BNF is a notation used to describe the grammar or syntax of computable languages. Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
@@ -12,11 +12,15 @@ In this chapter, the structure and intricacies of the DSL are presented. The not
 \section{Language Notations}
 \label{sec:languagenotations}
 
+\todo{Introduce the following subsections.}
+
+\subsection{High-level Concepts}
+
 The high-level concepts that can be created in the language are:
 
 \begin{itemize}
 \item \textbf{Property -} A property represents a temporal specification or a blend of temporal specifications between components.
-\item \textbf{Declaration -} A declaration allows for the representation of ROS \textit{topics} in order to interact with it.
+\item \textbf{Declaration -} A declaration allows for the representation of ROS \textit{topics} in order to interact with them.
 \item \textbf{Model -} A model allows for the declaration of specific \textit{topics} that are required when correlating certain robots' and simulation components.
 \item \textbf{Association -} An association serves as a way to create program variables.
 \end{itemize}
@@ -43,6 +47,8 @@ The language considers not only LTL basic operators but also some common shortcu
 % Temporal value
 \subsection{Temporal value}
 \label{ssec:tempvalues}
+
+\todo{X is a property before. Now it is a variable. I would recommend using lowercase x for variable names, or other letter.}
 
 It is also possible to reference previous variable states:
 \begin{equation}
@@ -108,9 +114,11 @@ In order to relate robot components with the simulation, the developer can decla
 
 The language cannot inherently have a way to interact with specific components of a robot because it does not know which \textit{topic} to get information from. Therefore, the developer needs to declare these specific topics to be able to interact with them.
 
-\texttt{decl robot\_position /odom Odometry.pose.pose.position}
-
-\textit{The variable robot\_position was declared with the type Odometry.pose.pose.position and is linked to the topic /odom;}
+\todo{Usar listings nos exemplos seguintes, como aqui.}
+\begin{lstlisting}
+decl robot_position /odom Odometry.pose.pose.position	
+\end{lstlisting}
+\textit{The variable \texttt{robot\_position} was declared with the type \texttt{Odometry.pose.pose.position} and is linked to the topic \texttt{/odom}}
 
 
 % ------------------------------------------------------------------------------
@@ -120,13 +128,12 @@ The language cannot inherently have a way to interact with specific components o
 
 A set of specific topics can be modeled for the robot, like \textit{position} or \textit{velocity}. The compiler will use these to call specific functions that need this information from the robot's perspective.
 
-\texttt{model robot1:}
-
-\texttt{    position /odom Odometry.pose.pose.position}
-
-\texttt{    ;}
-
-\texttt{never robot1.localization\_error > 0.002}
+\begin{lstlisting}
+model robot1:
+    position /odom Odometry.pose.pose.position
+    ;
+    never robot1.localization\_error > 0.002
+\end{lstlisting}
 
 \textit{The localization\_error function requires the position topic of a robot to be modeled in order to compare it with the actual simulation position}
 
@@ -134,6 +141,8 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
 % Grammar
 \section{Grammar}
 \label{sec:grammar}
+
+\todo{you need a sentence introducing the grammar. You should also highlight the need for a few productions, maybe relating with the high-level concepts.}
 
 \begin{bnfgrammar}
     <program> %: Start
@@ -252,7 +261,7 @@ Some robots have a maximum safe speed at which they can move. Sometimes this lim
 \subsection{Follow the Leader}
 \label{ssec:followexample}
 
-The first robot being above 1 velocity implies that the second robot is at least at 0.8 distance from the first robot. Up until the first robot reaches a particular location;
+The first robot being above 1 velocity implies that the second robot is at least at 0.8 distance from the first robot, up until the first robot reaches a particular location;
 
 \texttt{until (robot1.position.x > 45 and robot1.position.y > 45), always (robot1.velocity > 1 implies robot2.distance.robot1 > 0.8)}
 
