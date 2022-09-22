@@ -214,7 +214,9 @@ The \textit{<association>} production highlights a basic notation of the languag
     <multiplication> * <addition>
     | <multiplication> / <addition>
     | <addition>
-    ;;
+\end{bnfgrammar}
+
+\begin{bnfgrammar}
     <addition> ::= <addition> + <operand>
     || <addition> - <operand>
     || <operand>
@@ -235,7 +237,6 @@ The \textit{<association>} production highlights a basic notation of the languag
     <temporalvalue> ::= 
     @ { name , integer }
 \end{bnfgrammar}
-
 
 % ------------------------------------------------------------------------------
 % DSL Usage Examples
