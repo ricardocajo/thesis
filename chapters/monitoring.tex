@@ -28,9 +28,8 @@ The monitoring file can now run as an independent ROS node, integrated into a la
 
 % ------------------------------------------------------------------------------
 % Generated File
-\section{Generated File} 
+\section{Compilation} 
 \label{sec:generatedfile}
-\todo{New name of the section: Compilation}
 
 \todo{This section needs to be vastly extended! It should have 1) figure with architecture of the generated model; 2) A description of the runtime library you have to support the property checking (i.e., auxiliary functions) and 3) The translation rules between the source code and the generated code. Examples of things that need: how to subscribe to topics that were declared, how to emit error messages, how to access past versions of the state, how is it recorded (data structure).}
 
@@ -52,10 +51,9 @@ The node executes a loop at a delineated rate, doing the following tasks:
 \section{Error Messages}
 \label{sec:errormessages}
 
-An error message starts by stating the line in the specification file which resulted in an error and showing the specification itself.
-\todo{This does not make sense as the explanation for error messages! You have different temporal restrictions: are the errors the same for all of them? How do you select the state that you present? Do you show all the variables in context, the monitored ones, or the ones present in the property? There is space for discussion here on how you could provide more precise messages.}
+An error message starts by stating the line in the specification file which resulted in an error as well as showing the property where the error originated.
 
-Afterward, the value at the time of failure of all the variables present at the specification is shown.
+Afterward, I use the current saved state of the simulation to show the values at the time of failure of all the variables present in the property that originated the error.
 
 \begin{figure}[htb]
 \includegraphics[width=\textwidth]{images/error_message1.png}
