@@ -4,7 +4,7 @@
 \chapter{Monitoring}
 \label{chap:monitoring}
 
-This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained in \autoref{sec:runtimemonitoring}, then the generated file and some of its specifications are described in (\autoref{sec:generatedfile}).
+This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained in \autoref{sec:runtimemonitoring}, then the generated file and some of its specifications are described in \autoref{sec:generatedfile}.
 
 
 % ------------------------------------------------------------------------------
@@ -12,13 +12,13 @@ This chapter explains the whole process of monitoring, from compilation to error
 \section{Runtime Monitoring}
 \label{sec:runtimemonitoring}
 
-After writing all the desired robotic systems specifications, the file needs to be compiled to a monitoring Python module. This is currently done running the following script, from its location: \lstinline{python language.py properties.txt /home/ros_workspace/src/my_pkg/src}.
+After writing all the desired robotic systems specifications, the file needs to be compiled into a monitoring Python module. This is currently done running the following script, from its location: \lstinline{python language.py properties.txt /home/ros_workspace/src/my_pkg/src}.
 
 The \textit{language.py} file needs to be run as a Python file and takes as arguments:
 
 \begin{enumerate}
     \item The specifications file;
-    \item The path where the the generated Python monitoring module will be generated.
+    \item The path where the generated Python monitoring module will be generated.
 \end{enumerate}
 
 The given directory for the generated file should be under a ROS workspace for the compilation to succeed. This is because, during the compilation, access to information like the available ROS messages might be necessary.
@@ -31,40 +31,37 @@ The monitoring file can now run as an independent ROS node, integrated into a la
 \section{Compilation} 
 \label{sec:generatedfile}
 
-\todo{explain sections}
-
-This section *then the generated file and some of its specifications are described*
+This section starts by giving an overview of what the generated code does while executing (\autoref{ssec:compileArchitecture}), next the data structures used in compilation and the translation rules to the generated code are explained (\autoref{ssec:compileCtx}), how the various states of the simulation are saved is discussed in \autoref{ssec:compileState}, and finally the generation of error messages is talked about in \autoref{ssec:errormessages}. 
 
 % ------------------------------------------------------------------------------
 % Runtime Monitoring
 \subsection{Architecture}
 \label{ssec:compileArchitecture}
 
-\todo{Diagram/Figure here somewhere and see whole subsection}
+\begin{figure}[htb]
+%\includegraphics[width=\textwidth]{images/gen_code_diagram.pdf}
+\caption{Diagram of the execution of the generated code.} \label{fig:gencodediag}
+\end{figure}
 
 The node executes a loop at a delineated rate, doing the following tasks:
 
 \begin{enumerate}
-    \item Check if the defined simulation timeout time has reached.
-    \item Save the current simulation state.
-    \item Verify the properties using the saved states and calling each created function. An independent function with the necessary computations for verifying the property is defined for each base property.
+    \item Check if the defined simulation timeout time has been reached.
+    \item Save the current simulation state in a global variable of saved states.
+    \item Verify the properties using the saved states and calling each dedicated property function.
 \end{enumerate}
 
-
-\todo{Maybe add section here about type checking?}
 
 % ------------------------------------------------------------------------------
 % Runtime Monitoring
 \subsection{Code Generation}
 \label{ssec:compileCtx}
 
-In order to generate the monitoring code some context is saved when parsing through the abstract syntax tree created from the specification file.
+In order to generate the monitoring code, some context is saved when parsing through the abstract syntax tree created from the specification file.
 
-The saved context is essentialy separated in five lists: \nameref{sssec:compileModels}, \nameref{sssec:compileAssoc}, \nameref{sssec:compileVars}, \nameref{sssec:compileSubs}, and \nameref{sssec:compileProp}.
+The saved context is essentialy separated in five Dictionary lists: \nameref{sssec:compileModels}, \nameref{sssec:compileAssoc}, \nameref{sssec:compileVars}, \nameref{sssec:compileSubs}, and \nameref{sssec:compileProp}.
 
-The information saved in these data structures will aftwards be used in translation rules between the source code to create the generated code.
-
-\todo{translation rules between the source code and the generated code. Of all}
+The information saved in these data structures will afterward be used in translation rules between the source code to create the generated code.
 
 
 % ------------------------------------------------------------------------------
@@ -75,14 +72,14 @@ The information saved in these data structures will aftwards be used in translat
 The data structure of each model saved in the context is composed of:
 
 \begin{enumerate}
-    \item The name during execution of the object in the simulation that is being modeled.
+    \item The name during the execution of the object in the simulation that is being modeled.
     \item The correspondent function the model refers to, for example \textit{velocity} or \textit{distance}.
     \item The Message type of the data structure of the \textit{topic} to subscribe.
 \end{enumerate}
 
 For each entry in the \textit{Model} of an object: A model data structure will be saved in the context. And a subscriber data structure will be created that will subscribe to the correspondent \textit{topic} of the modeled object.
 
-The subscriber and variable in the generated code associated to each entry will have a unique name composed of the object name plus the function associated in that entry.
+The subscriber and variable that fetches the subscriber’s value in the correspondent generated code that is associated with each entry, will have a unique name composed of the object name plus the function associated with that entry.
 
 
 % ------------------------------------------------------------------------------
@@ -97,7 +94,7 @@ The data structure of each association saved in the context is composed of:
     \item The name of the variable associated with the association.
 \end{enumerate}
 
-When specifying an association a new variable data structure is created in the context. The new variable has the prefix of an association aswell as its name. In the generated code the new variable will point to the variable created in the right side of the association.
+When specifying an association a new variable data structure is created in the context. The new variable has the prefix of an association as well as its name. In the generated code the new variable will point to the variable created on the right side of the association.
 
 
 % ------------------------------------------------------------------------------
@@ -112,10 +109,9 @@ The data structure of each variable saved in the context is composed of:
     \item Variable name to use in generated code.
 \end{enumerate}
 
-The variables names to be used in the generated code will have different sufixes and prefixes depending on: Their types, if they originate from a model, declaration, function or association. In this way it is easier to identify variable relations during the compilation of the generated code.
+The variable names to be used in the generated code will have different suffixes and prefixes depending on: Their types, and if they originate from a model, declaration, function, or association. In this way, it is easier to identify variable relations during the compilation of the generated code.
 
-All simulation primitives are hardcoded to get their absolute value from the simulator \textit{topic}.
-To retrieve the correct string for each primitive to be used in the generated code, an auxiliar function \textit{sim\_funcs} was created:
+All simulation primitives have a hardcoded representation to get their absolute value from the simulator \textit{topic}. To retrieve the correct string for each primitive to be used in the generated code, an auxiliary function \textit{sim\_funcs} was created:
 
 \begin{lstlisting}[language=Python]
     def sim_funcs(object_, func, args, ctx):
@@ -221,7 +217,7 @@ To retrieve the correct string for each primitive to be used in the generated co
 The data structure of each subscriber saved in the context is composed of:
 
 \begin{enumerate}
-    \item The Topic name which to subscribe.
+    \item The Topic name to which to subscribe.
     \item The Message type associated with the topic.
     \item The Library from which the Message type originates
     \item The Subscriber name in the generated code
@@ -229,7 +225,7 @@ The data structure of each subscriber saved in the context is composed of:
 
 A subscriber relates in the specification to a \textit{declaration}, a \textit{model} entry, or the default simulator information \textit{topic}.
 
-The Library is necessary in order to make an import of the Message type in the generated code. The Library is obtained through a python subsprocess:
+The Library is necessary in order to make an import of the Message type in the generated code. The Library is obtained through a python subprocess:
 
 \begin{lstlisting}[language=Python]
     command = f"cd {self.filepath} | rosmsg show {msg_type}"
@@ -253,17 +249,17 @@ The data structure of each property saved in the context is composed of:
     \item built string array with the necessary comparisons to build a boolean assertion about the property in the generated code.
 \end{enumerate}
 
+An independent function with the necessary computations for verifying the property is defined for each base property.
+
 
 % ------------------------------------------------------------------------------
 % Runtime Monitoring
 \subsection{State}
 \label{ssec:compileState}
 
-\todo{translation rules between the source code and the generated code. Of all}
+A callback function is called every time a new message from one of the subscribers is received. The callback function saves the relevant information for property checking in a global variable as a Dictionary. This information serves as a current "screenshot" of the simulation representing its current state.
 
-A callback function is called every time a new message from one of the subscribers is received. The callback function saves the relevant information for property checking in a global variable. This information serves as a current "screenshot" of the simulation representing its current state.
-
-obtained by the callback function. This is necessary because the callback function is called at fluctuating rates, and the objective is to save multiple "screenshots" of the simulation at the loop fixed rate to make correlations with past states.
+The callback function is called at fluctuating rates, for this reason, we take advantage of the loop that is running at a fixed rate to save multiple current states of the simulation in another global variable as a Dictionary List. This variable will be the one used when checking the properties to make correlations with past states.
 
 
 % ------------------------------------------------------------------------------
