@@ -4,7 +4,9 @@
 \chapter{Monitoring}
 \label{chap:monitoring}
 
-This chapter explains the whole process of monitoring, from compilation to error detection. First, the overall process of compilation is explained in \autoref{sec:runtimemonitoring}, then the generated file and some of its specifications are described in \autoref{sec:generatedfile}.
+This chapter explains the whole process of monitoring, from compilation to error detection. 
+
+First, the overall process of compilation is explained in \autoref{sec:runtimemonitoring}, then the generated file and some of its specifications are described in \autoref{sec:generatedfile}.
 
 
 % ------------------------------------------------------------------------------
@@ -38,8 +40,10 @@ This section starts by giving an overview of what the generated code does while 
 \subsection{Architecture}
 \label{ssec:compileArchitecture}
 
+The next diagram (\autoref{fig:gencodediag}) tries to capture the essence of what the generated code is doing when running alongside a simulation of a robotic system. The Diagram highlights the two parallel processes running in the node, the "Callback Function" and the "Monitoring Loop" and their job in the verification.
+
 \begin{figure}[htb]
-%\includegraphics[width=\textwidth]{images/gen_code_diagram.pdf}
+\includegraphics{images/gen_code_diagram.pdf}
 \caption{Diagram of the execution of the generated code.} \label{fig:gencodediag}
 \end{figure}
 
@@ -105,13 +109,13 @@ When specifying an association a new variable data structure is created in the c
 The data structure of each variable saved in the context is composed of:
 
 \begin{enumerate}
-    \item Variable name in the specification.
-    \item Variable name to use in generated code.
+    \item The variable name to use in generated code.
+    \item The generated code representation of the expression to be used to fetch the data of the variable.
 \end{enumerate}
 
 The variable names to be used in the generated code will have different suffixes and prefixes depending on: Their types, and if they originate from a model, declaration, function, or association. In this way, it is easier to identify variable relations during the compilation of the generated code.
 
-All simulation primitives have a hardcoded representation to get their absolute value from the simulator \textit{topic}. To retrieve the correct string for each primitive to be used in the generated code, an auxiliary function \textit{sim\_funcs} was created:
+All simulation primitives have a hardcoded representation to get their absolute value from the simulator \textit{topic} information, which is stored in a global \textit{state} variable (\autoref{ssec:compileState}). To retrieve the correct string for each primitive to be used in the generated code, an auxiliary function \textit{sim\_funcs} was created:
 
 \begin{lstlisting}[language=Python]
     def sim_funcs(object_, func, args, ctx):
@@ -217,8 +221,8 @@ All simulation primitives have a hardcoded representation to get their absolute 
 The data structure of each subscriber saved in the context is composed of:
 
 \begin{enumerate}
-    \item The Topic name to which to subscribe.
-    \item The Message type associated with the topic.
+    \item The \textit{Topic} name to which to subscribe.
+    \item The Message type associated with the \textit{topic}.
     \item The Library from which the Message type originates
     \item The Subscriber name in the generated code
 \end{enumerate}
@@ -239,17 +243,30 @@ The generated monitoring file declares the needed subscribers and uses Approxima
 \subsubsection{Properties}
 \label{sssec:compileProp}
 
-\todo{all here}
-
 The data structure of each property saved in the context is composed of:
 
 \begin{enumerate}
-    \item Line in the specification file.
-    \item the type of property.
-    \item built string array with the necessary comparisons to build a boolean assertion about the property in the generated code.
+    \item The correspondent line in the specification file.
+    \item The correspondent type of property.
+    \item A List of Strings with the necessary code representation of boolean assertions to be used in the generated code as a property verification.
 \end{enumerate}
 
-An independent function with the necessary computations for verifying the property is defined for each base property.
+
+A property is represented by one base property, which is the one at the first level of the specification. In the next example (\nameref{lstlisting:compileEx}), the base property saved in the context will be the "after". The "never" property will only influence the way the property is checked on the generated code and no data structure of it will be saved in the context.
+
+\begin{lstlisting}[language=Python]
+    after robot.distance.wall < 1, never robot.velocity > 0.5
+\end{lstlisting}\label{lstlisting:compileEx}
+
+A property, in order of complexity, is comprised of: Other properties, conjunctions (\textit{and}, \textit{or}, and \textit{implies}), comparisons (\textit{<}, \textit{>}, \textit{<=}, \textit{>=}, \textit{==}, and \textit{!=}), operations (\textit{+}, \textit{-}, \textit{*}, and \textit{/}), and operands (variable, number, boolean, simulation primitive, and temporal value). 
+
+The abstract syntax tree is parsed from the lowest to the highest complexity field, in this way the List of strings that represent boolean assertions in the generated code can be accumulatively built because the information from the lowest fields is always present in the higher ones. In the end, a List with the necessary comparisons is built for a base property.
+
+%self.eventually = 0
+%self.eventually\_aux = 0
+%self.is\_after = False
+
+In the generated code an independent function with the necessary boolean assertions for verifying the property will then be defined for each base property.
 
 
 % ------------------------------------------------------------------------------
