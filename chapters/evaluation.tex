@@ -24,12 +24,12 @@ ROBUST~\cite{robust} is a dataset that documents over two hundred bugs in multip
 
 To replicate each bug, a \textit{daemon} node is inserted into the system that interferes with the normal runtime flow and replicates the desired bug. \autoref{fig:normalflow} represents the natural flow of the systems whilst \autoref{fig:demonflow} shows the system flow when trying to replicate a bug with the help of the \textit{daemon} node.
 
-\begin{figure}
+\begin{figure}[htb]
 \includegraphics[width=\textwidth]{images/normal_flow.pdf}
 \caption{The normal runtime flow of the system.} \label{fig:normalflow}
 \end{figure}
     
-\begin{figure}
+\begin{figure}[htb]
 \includegraphics[width=\textwidth]{images/demon_flow.pdf}
 \caption{The flow of the system when the adding the daemon node.} \label{fig:demonflow}
 \end{figure}
@@ -65,7 +65,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 \textit{Daemon} node code and behavior:
 
-\begin{lstlisting}[language=python]
+\begin{lstlisting}[language=Python]
     class Direction_invert_error:
 
         def __init__(self):
@@ -90,7 +90,7 @@ The \textit{daemon} node checks when the given robot's command linear velocity i
 
 Now when giving commands to the robot, if the given velocity is below \textit{0.012} and I make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=8cm,height=2cm,keepaspectratio,]{images/erreval1.png}
 \caption{Calculation Error Inverts Turning Direction bug error message.} \label{fig:erreval1}
@@ -116,7 +116,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 \textit{Daemon} node code and behavior:
 
-\begin{lstlisting}[language=python]
+\begin{lstlisting}[language=Python]
     class Auto_docking_error:
 
         def __init__(self):
@@ -141,7 +141,7 @@ The \textit{daemon} node checks when the given robot's command linear velocity i
 
 Now when giving commands to the robot, if the given velocity is below \textit{0.015} the robot will stay stationary. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval2}.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=10cm,height=3cm,keepaspectratio,]{images/erreval2.png}
 \caption{Robot Getting Stuck When Auto-docking bug error message.} \label{fig:erreval2}
@@ -167,7 +167,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 \textit{Daemon} node code and behavior:
 
-\begin{lstlisting}[language=python]
+\begin{lstlisting}[language=Python]
     class Backwards_movement_error:
 
         def __init__(self):
@@ -192,9 +192,11 @@ The \textit{daemon} node checks when the given robot's command linear velocity i
 
 Now when giving commands to the robot, if the given velocity is above \textit{0.03}, the robot will start moving backward. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval3}.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=10cm,height=3cm,keepaspectratio,]{images/erreval3.png}
 \caption{Unexpected Movement Due to Wrong Calculation bug error message.} \label{fig:erreval3}
 \end{center}
 \end{figure}
+
+%\todo{Feels like it's missing a section with a list of real-world bugs that could be detected with your language, even if you did not implement them.}

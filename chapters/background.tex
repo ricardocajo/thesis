@@ -54,9 +54,20 @@ Due to the mentioned unforeseen circumstances when executing robotic systems, ru
 
 Implementing runtime monitoring adds load to the simulation. Therefore, not demanding excessive resources is essential when taking this approach.
 
-Some challenges in implementing such mechanisms are mentioned in the cited paper~\cite{stadler2022towards}.
+The work developed in \textit{"Towards flexible Runtime Monitoring Support for ROS-based Applications"}~\cite{stadler2022towards} pinpoint the challenges in developing runtime monitoring tools for robotic-based applications:
 
-Besides the method of monitoring chosen in this work, runtime testing can be implemented in other ways. For instance, Mithra~\cite{AfzalMithra} is a tool that provides an oracle for automated simulation-based testing relying on machine learning software, more specifically, a three-step multivariate time series clustering.
+\begin{itemize}
+    \item \textit{"Provisioning of an initial overview of the system structure."}
+    \item \textit{"Diversity and need to individually configure monitoring needs."}
+    \item \textit{"Only a subset of these properties likely need to be monitored on a continuous basis."}
+    \item \textit{"Data needs to be collected and analyzed differently."}
+    \item \textit{"Diverse types of constraints need to be defined and checked on the data."}
+    \item \textit{"Make the outcome of the runtime monitoring data and services accessible to the user."}
+\end{itemize}
+
+These challenges are relevant in choosing which direction to take when specifying the DSL or implementing the monitoring tool for my approach.
+
+%%Besides the method of monitoring chosen in this work, runtime testing can be implemented in other ways. For instance, Mithra~\cite{AfzalMithra} is a tool that provides an oracle for automated simulation-based testing relying on machine learning software, more specifically, a three-step multivariate time series clustering. \todo{Seems out of nowhere. I don't see the relationship to your work from this paragraph. What other methods are there?}
 
 
 % ------------------------------------------------------------------------------
@@ -80,8 +91,8 @@ As an approach for program verification, a formal system of temporal logic was s
 
 Similar work on runtime monitoring that integrates with ROS already exists. 
 
-ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} malfunctioning, however, it was designed with portability and scalability in mind which means it is highly complex to use and can be not very user-friendly unless you are already knowledgeable of the subject. 
+ROSMonitoring~\cite{ferrando2020rosmonitoring} can monitor and log errors at the level of \textit{topic} (communication buses between the systems' components) malfunctioning, however, it was designed with portability and scalability in mind which means it is highly complex to use and can be not very user-friendly unless you are already knowledgeable of the subject.
 
 ROSMonitoring also doesn't provide a ROS-oriented DSL, instead, it takes advantage of the already built and somewhat generic language Runtime Monitoring Language (RML)~\cite{rml} which doesn't provide the expressiveness and intuitiveness I expect from a ROS-oriented invariant specification language. 
 
-ROSRV~\cite{huang2014rosrv} is another tool that provides the runtime monitoring of ROS systems, however, ROSRV implements safety measures while the system is running, interfering with its normal execution. ROSRV lacks documentation on its functioning and usage, also, ROSRV seems to have been discontinued since its last version is only capable of running under ROS Groovy Galapagos, which is no longer supported by ROS since 2014.
+ROSRV~\cite{huang2014rosrv} is another tool that provides the runtime monitoring of ROS systems, however, ROSRV implements safety measures while the system is running, interfering with its normal execution. ROSRV lacks documentation on its functioning and usage. Additionally, ROSRV seems to have been discontinued since its last version is only capable of running under ROS Groovy Galapagos, which has not been supported since 2014.
