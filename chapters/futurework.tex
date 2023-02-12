@@ -3,7 +3,7 @@
 \label{chap:futurework}
 
 In this chapter, the possible work left undone or that could improve our study is presented.
-Improvement of the developed work performance is mentioned in \autoref{sec:performancetweaking}, \autoref{sec:validationproposal} mentions the validation of the work, \autoref{sec:bettererrormsg} discusses about the works' error messages, \autoref{sec:integratescenario} talks about the integration with scenario generation tools, \autoref{sec:integratesimulators} mentions the possible integration with other simulators besides Gazebo, and finally \autoref{sec:autquaass} talks about a more advanced quality assurance tool.
+Improvement of the developed work performance is mentioned in \autoref{sec:performancetweaking}, \autoref{sec:validationproposal} mentions the validation of the work, \autoref{sec:bettererrormsg} discusses about the work's error messages, \autoref{sec:integratescenario} talks about the integration with scenario generation tools, \autoref{sec:integratesimulators} mentions the possible integration with other simulators besides Gazebo, and finally \autoref{sec:autquaass} talks about a more advanced quality assurance tool.
 
 
 % ------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ Although some evaluation was done for the work done, more evidence and experimen
 
 Giving developers helpful and comprehensible error messages is a shared concern amongst all compilers. One can argue that even the best compilers still have space for improvement when talking about delivering good error messages.
 
-Although in this work I gave some thought to the error messages delivery, I believe that a more narrow error localization is still possible.
+Although in this work I gave some thought to the error messages delivery, I believe that a more narrow error localization is still possible. For instance, in cases where a property has assertions for a time interval, like an \textit{after\_until} or an \textit{eventually}, maybe not only the value at the time of failure of the variables present in the specification should be shown but also a selection of the values at multiple previous states of the simulation.
 
 Also, there was no time for a thorough validation of the proposal, which means that some bugs could be present when delivering the error messages, and the users could have some problems with the delivery or ideas on how to improve it.
 
@@ -59,7 +59,7 @@ For instance, GzScenic~\cite{AfzalGzScenic} is a tool that generates random scen
 
 This work was developed with the Gazebo simulator in mind, which means the monitoring is currently not compatible with other simulators.
 
-Although Gazebo is widely used, many other simulators are also currently being used, like RoboDK~\cite{robodk}, Webots~\cite{webots} or Unity~\cite{unity}. Therefore, adapting our work to integrate other widely used simulators would be helpful for many users that choose not to use Gazebo.
+Although Gazebo is widely used, many other simulators are also currently being used, like RoboDK~\cite{dkrobo}, Webots~\cite{webots} or Unity~\cite{unity}. Therefore, adapting our work to integrate other widely used simulators would be helpful for many users that choose not to use Gazebo.
 
 
 % ------------------------------------------------------------------------------

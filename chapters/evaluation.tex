@@ -4,7 +4,7 @@
 \chapter{Evaluation}
 \label{chap:evaluation}
 
-This chapter introduces the evaluation process of the work. \autoref{sec:evaluationoverview} gives a broad overview of the whole process, and \autoref{sec:experiments} goes into more detail about each one of the experiments.
+This chapter introduces the evaluation process of the work. \Cref{sec:evaluationoverview} gives a broad overview of the whole process, and \autoref{sec:experiments} goes into more detail about each one of the experiments.
 
 
 % ------------------------------------------------------------------------------
@@ -14,12 +14,12 @@ This chapter introduces the evaluation process of the work. \autoref{sec:evaluat
 
 To evaluate the developed work, I decided to go through a list of already documented ROS bugs and identify three that happen at runtime. After that, I specified a robot's properties in the DSL that should be capable of detecting an error for said bugs while running the system.
 
-ROBUST~\cite{robust} is a dataset that documents over two hundred bugs in multiple robots using ROS. After going through the dataset, three bugs were chosen:
+ROBUST~\cite{robust} is a dataset that documents over two hundred bugs in multiple robots using ROS. After going through the dataset in an initial skim, three bugs that happened at runtime and didn't halt the robot execution were identified:
 
 \begin{itemize}
-    \item Calculation Error Inverts Turning Direction~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/e964bbb/e964bbb.bug}} (\autoref{ssec:calculationerrorinvertsturningdirection}) - "Due to an error in velocity calculations, when Kobuki was issued a very low negative linear speed (very slow backwards movement), it would also inadvertently invert its turning direction. That is, if it was supposed to move backwards while turning left, it would move backwards and turn right instead."
-    \item Robot Getting Stuck When Auto-docking~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/0416c81/0416c81.bug}} (\autoref{ssec:robotgettingstuckwhenautodocking}) - "The movement speeds were hard-coded for the auto-docking algorithm, and worked well for regular Kobuki and Turtlebot, but were too slow for heavier robots, causing them to get stuck."
-    \item Unexpected Movement Due to Wrong Calculation~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/1c141a5/1c141a5.bug}} (\autoref{ssec:unexpectedmovementduetowrongcalculation}) - "Kobuki moves using differential drive. Originally, the command velocities (linear and angular) were provided as `short`, and were converted to `short` after each step, even though the calculations yielded floating point numbers. This lead to calculation errors in some special cases, where the robot was supposed to move forward but ended up moving backwards instead."
+    \item Calculation Error Inverts Turning Direction~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/e964bbb/e964bbb.bug}} (\autoref{ssec:calculationerrorinvertsturningdirection}) - ``Due to an error in velocity calculations, when Kobuki was issued a very low negative linear speed (very slow backwards movement), it would also inadvertently invert its turning direction. That is, if it was supposed to move backwards while turning left, it would move backwards and turn right instead.''
+    \item Robot Getting Stuck When Auto-docking~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/0416c81/0416c81.bug}} (\autoref{ssec:robotgettingstuckwhenautodocking}) - ``The movement speeds were hard-coded for the auto-docking algorithm, and worked well for regular Kobuki and Turtlebot, but were too slow for heavier robots, causing them to get stuck.''
+    \item Unexpected Movement Due to Wrong Calculation~\footnote{\url{https://github.com/robust-rosin/robust/blob/master/kobuki/1c141a5/1c141a5.bug}} (\autoref{ssec:unexpectedmovementduetowrongcalculation}) - ``Kobuki moves using differential drive. Originally, the command velocities (linear and angular) were provided as `short`, and were converted to `short` after each step, even though the calculations yielded floating point numbers. This lead to calculation errors in some special cases, where the robot was supposed to move forward but ended up moving backwards instead.''
 \end{itemize}
 
 To replicate each bug, a \textit{daemon} node is inserted into the system that interferes with the normal runtime flow and replicates the desired bug. \autoref{fig:normalflow} represents the natural flow of the systems whilst \autoref{fig:demonflow} shows the system flow when trying to replicate a bug with the help of the \textit{daemon} node.
@@ -38,13 +38,15 @@ When injecting a bug, all the data before addressed to the robots' \textit{/cmd\
 
 With this new system flow, it is possible to specify properties between the \textit{/cmd\_vel} topic which represents the robots' behavior, and the \textit{/cmd\_vel\_original} topic, which represents the actual command given to the robot.
 
+The robots' \textit{/cmd\_vel} topic expects to receive messages of type \textit{Twist}, a data structure composed of two \textit{Vector3} objects, that express velocity in its linear and angular parts, for this reason, our \textit{/cmd\_vel\_original} will also need to receive and send messages of the \textit{Twist} type.
+
 
 % ------------------------------------------------------------------------------
 % Experiments
 \section{Experiments}
 \label{sec:experiments}
 
-This section goes through the property specification and runtime monitoring for the three mentioned selected bugs. Calculation Error Inverts Turning Direction (\autoref{sec:background}), Robot Getting Stuck When Auto-docking(\autoref{sec:background}), and Unexpected Movement Due to Wrong Calculation (\autoref{sec:background}).
+This section goes through the property specification and runtime monitoring for the three mentioned selected bugs. Calculation Error Inverts Turning Direction (\autoref{ssec:calculationerrorinvertsturningdirection}), Robot Getting Stuck When Auto-docking(\autoref{ssec:robotgettingstuckwhenautodocking}), and Unexpected Movement Due to Wrong Calculation (\autoref{ssec:unexpectedmovementduetowrongcalculation}).
 
 
 % ------------------------------------------------------------------------------
@@ -61,7 +63,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 \texttt{after turtlebot3.velocity.angular.z < 0, never angular\_vel\_robot\_perception > 0}
 
-\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation z parameter of the angular velocity is less than zero, then in the second section, never the z parameter of the angular velocity of the command given to the robot is more than zero.}
+\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation z parameter of the angular velocity is less than zero, then in the second section, the z parameter of the angular velocity of the command given to the robot is never more than zero.}
 
 \textit{Daemon} node code and behavior:
 
@@ -88,7 +90,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 The \textit{daemon} node checks when the given robot's command linear velocity is below \textit{0.012} and injects the opposite value of the z parameter of the angular velocity to the actual robot's velocity in the simulation.
 
-Now when giving commands to the robot, if the given velocity is below \textit{0.012} and I make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
+Now when giving commands to the robot, if the given velocity is below \textit{0.012}, a value chosen at random to start emulating the behavior, and I make a turn, the robot will turn the opposite way. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval1}.
 
 \begin{figure}[htb]
 \begin{center}
@@ -110,9 +112,9 @@ Then I make a correlation between the topic that represents the given commands a
 
 \texttt{decl vel\_robot\_perception cmd\_vel\_original Twist.linear.x}
 
-\texttt{after vel\_robot\_perception > 0, never turtlebot3.velocity =={0.005} 0}
+\texttt{after vel\_robot\_perception > 0, never turtlebot3.velocity ==\{0.005\} 0}
 
-\textit{Translating into natural language, the property states in the first section that after the given robot's commands x parameter of the linear velocity is greater than zero, then in the second section never, the actual simulation's linear velocity is equal to zero.}
+\textit{Translating into natural language, the property states in the first section that after the given robot's commands x parameter of the linear velocity is greater than zero, then in the second section, the actual simulation linear velocity is never equal to the interval -0.005 to 0.005, which is roughly zero.}
 
 \textit{Daemon} node code and behavior:
 
@@ -139,7 +141,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 The \textit{daemon} node checks when the given robot's command linear velocity is below \textit{0.015} and injects a value of \textit{0.0} to the linear velocity of the actual robot's velocity in the simulation.
 
-Now when giving commands to the robot, if the given velocity is below \textit{0.015} the robot will stay stationary. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval2}.
+Now when giving commands to the robot, if the given velocity is below \textit{0.015}, a value chosen at random to start emulating the behavior, the robot will stay stationary. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval2}.
 
 \begin{figure}[htb]
 \begin{center}
@@ -163,7 +165,7 @@ Then I make a correlation between the topic that represents the given commands a
 
 \texttt{after turtlebot3.velocity.linear.x < 0, never vel\_robot\_perception > 0}
 
-\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation x parameter of the linear velocity is less than zero, then in the second section, never the x parameter of the linear velocity of the command given to the robot is more than zero.}
+\textit{Translating into natural language, the property states in the first section that after the robot's actual simulation x parameter of the linear velocity is less than zero, then in the second section, the x parameter of the linear velocity of the command given to the robot is never more than zero.}
 
 \textit{Daemon} node code and behavior:
 
@@ -188,7 +190,7 @@ Then I make a correlation between the topic that represents the given commands a
                 self.cmd_vel_pub.publish(self.twist)
 \end{lstlisting}
 
-The \textit{daemon} node checks when the given robot's command linear velocity is above \textit{0.03} and injects the opposite value of the x parameter of the linear velocity to the actual robot's velocity in the simulation.
+The \textit{daemon} node checks when the given robot's command linear velocity is above \textit{0.03}, a value chosen at random to start emulating the behavior, and injects the opposite value of the x parameter of the linear velocity to the actual robot's velocity in the simulation.
 
 Now when giving commands to the robot, if the given velocity is above \textit{0.03}, the robot will start moving backward. The output of the monitoring node for a test case is demonstrated in \autoref{fig:erreval3}.
 

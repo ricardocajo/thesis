@@ -20,7 +20,7 @@ The \textit{language.py} file needs to be run as a Python file and takes as argu
 
 \begin{enumerate}
     \item The specifications file;
-    \item The path where the generated Python monitoring module will be generated.
+    \item The path where the Python monitoring module will be generated.
 \end{enumerate}
 
 The given directory for the generated file should be under a ROS workspace for the compilation to succeed. This is because, during the compilation, access to information like the available ROS messages might be necessary.
@@ -33,21 +33,23 @@ The monitoring file can now run as an independent ROS node, integrated into a la
 \section{Compilation} 
 \label{sec:generatedfile}
 
-This section starts by giving an overview of what the generated code does while executing (\autoref{ssec:compileArchitecture}), next the data structures used in compilation and the translation rules to the generated code are explained (\autoref{ssec:compileCtx}), how the various states of the simulation are saved is discussed in \autoref{ssec:compileState}, and finally the generation of error messages is talked about in \autoref{ssec:errormessages}. 
+In this section, we start by giving an overview of what the generated code does while executing (\autoref{ssec:compileArchitecture}), next, we explain the data structures used in compilation and the translation rules to the generated code are explained in (\autoref{ssec:compileCtx}). We discuss how the various states of the simulation are saved in \autoref{ssec:compileState}. Finally, we discuss the generation of error messages in \autoref{ssec:errormessages}. 
 
 % ------------------------------------------------------------------------------
 % Runtime Monitoring
 \subsection{Architecture}
 \label{ssec:compileArchitecture}
 
-The next diagram (\autoref{fig:gencodediag}) tries to capture the essence of what the generated code is doing when running alongside a simulation of a robotic system. The Diagram highlights the two parallel processes running in the node, the "Callback Function" and the "Monitoring Loop" and their job in the verification.
+The diagram in \autoref{fig:gencodediag} tries to capture the essence of what the generated code is doing when running alongside a simulation of a robotic system. The topic where its fetched the real simulation data \textit{/gazebo/model\_states}, and the multiple topics with the robot perception of the simulation. The diagram highlights the two parallel processes running in the node, the ``Callback Function'' and the ``Monitoring Loop'' and their job in the verification.
 
 \begin{figure}[htb]
 \includegraphics{images/gen_code_diagram.pdf}
 \caption{Diagram of the execution of the generated code.} \label{fig:gencodediag}
 \end{figure}
 
-The node executes a loop at a delineated rate, doing the following tasks:
+The callback function is called every time a new message is received in one of the subscribed topics, it saves the relevant information for the property checking in a global variable and this information serves as the current ``screenshot'' of the simulation representing its current state.
+
+The node executes a loop at a delineated rate, which is represented in the diagram as the ``Monitoring Loop'', doing the following tasks:
 
 \begin{enumerate}
     \item Check if the defined simulation timeout time has been reached.
@@ -76,14 +78,14 @@ The information saved in these data structures will afterward be used in transla
 The data structure of each model saved in the context is composed of:
 
 \begin{enumerate}
-    \item The name during the execution of the object in the simulation that is being modeled.
+    \item The name of the object in the simulation that is being modeled.
     \item The correspondent function the model refers to, for example \textit{velocity} or \textit{distance}.
     \item The Message type of the data structure of the \textit{topic} to subscribe.
 \end{enumerate}
 
-For each entry in the \textit{Model} of an object: A model data structure will be saved in the context. And a subscriber data structure will be created that will subscribe to the correspondent \textit{topic} of the modeled object.
+For each entry in the \textit{Model} of an object, a model data structure will be saved in the context. A subscriber data structure will also be created that subscribes to the correspondent \textit{topic} of the modeled object.
 
-The subscriber and variable that fetches the subscriber’s value in the correspondent generated code that is associated with each entry, will have a unique name composed of the object name plus the function associated with that entry.
+The subscriber and variable in the correspondent generated code that are associated with each entry of the Model, will have a unique name composed of the object name plus the function associated with that entry.
 
 
 % ------------------------------------------------------------------------------
@@ -212,6 +214,10 @@ All simulation primitives have a hardcoded representation to get their absolute 
     return "states[0]['" + var_name + "']"
 \end{lstlisting}
 
+For instance, if the compilation is processing the primitive \textit{robot1.distance.robot2} that relates the distance between two robots, this function will compute the variable named \textit{robot1\_robot2\_distance} and how to fetch its value during execution:
+\begin{lstlisting}[language=Python]
+robot1_robot2_distance = ((model_states_msg.pose[model_states_indexes[’robot1’]].position.x - model_states_msg.pose[model_states_indexes[’robot2’]].position.x)**2 +(model_states_msg.pose[model_states_indexes[’robot1’]].position.y - model_states_msg.pose[model_states_indexes[’robot2’]].position.y)**2)**(0.5)
+\end{lstlisting}
 
 % ------------------------------------------------------------------------------
 % Runtime Monitoring
@@ -223,8 +229,8 @@ The data structure of each subscriber saved in the context is composed of:
 \begin{enumerate}
     \item The \textit{Topic} name to which to subscribe.
     \item The Message type associated with the \textit{topic}.
-    \item The Library from which the Message type originates
-    \item The Subscriber name in the generated code
+    \item The Library from which the Message type originates.
+    \item The Subscriber name in the generated code.
 \end{enumerate}
 
 A subscriber relates in the specification to a \textit{declaration}, a \textit{model} entry, or the default simulator information \textit{topic}.
@@ -235,7 +241,7 @@ The Library is necessary in order to make an import of the Message type in the g
     command = f"cd {self.filepath} | rosmsg show {msg_type}"
 \end{lstlisting}
 
-The generated monitoring file declares the needed subscribers and uses ApproximateTimeSynchronizer to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, uses the ROS time.
+The generated monitoring file declares the needed subscribers and uses ApproximateTimeSynchronizer, from the \textit{message\_filters} package, to call the callback function. The ApproximateTimeSynchronizer synchronizes messages by their timestamp and if they do not have a header, uses the ROS time.
 
 
 % ------------------------------------------------------------------------------
@@ -252,7 +258,7 @@ The data structure of each property saved in the context is composed of:
 \end{enumerate}
 
 
-A property is represented by one base property, which is the one at the first level of the specification. In the next example (\nameref{lstlisting:compileEx}), the base property saved in the context will be the "after". The "never" property will only influence the way the property is checked on the generated code and no data structure of it will be saved in the context.
+A property is represented by one base property, which is the one at the first level of the specification. In the next example, the base property saved in the context will be the "after". The "never" property will only influence the way the property is checked on the generated code and no data structure of it will be saved in the context.
 
 \begin{lstlisting}[language=Python]
     after robot.distance.wall < 1, never robot.velocity > 0.5
@@ -260,7 +266,7 @@ A property is represented by one base property, which is the one at the first le
 
 A property, in order of complexity, is comprised of: Other properties, conjunctions (\textit{and}, \textit{or}, and \textit{implies}), comparisons (\textit{<}, \textit{>}, \textit{<=}, \textit{>=}, \textit{==}, and \textit{!=}), operations (\textit{+}, \textit{-}, \textit{*}, and \textit{/}), and operands (variable, number, boolean, simulation primitive, and temporal value). 
 
-The abstract syntax tree is parsed from the lowest to the highest complexity field, in this way the List of strings that represent boolean assertions in the generated code can be accumulatively built because the information from the lowest fields is always present in the higher ones. In the end, a List with the necessary comparisons is built for a base property.
+The abstract syntax tree is parsed from the lowest to the highest complexity field, in this way the List of strings that represent boolean assertions in the generated code can be cumulatively built because the information from the lowest fields is always present in the higher ones. In the end, a List with the necessary comparisons is built for a base property.
 
 %self.eventually = 0
 %self.eventually\_aux = 0

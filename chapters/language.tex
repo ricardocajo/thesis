@@ -4,7 +4,7 @@
 \chapter{A Specification Language for Robotics Properties}
 \label{chap:language}
 
-In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in (\autoref{sec:languagenotations}). The DSL grammar is written in the Backus-Naur Form (BNF) (\autoref{sec:grammar}). BNF is a notation used to describe the grammar or syntax of computable languages. Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
+In this chapter, the structure and intricacies of the DSL are presented. The notations used in the DSL, like concepts and keywords, are introduced in \autoref{sec:languagenotations}. The DSL grammar is written in the Backus-Naur Form (BNF) (\autoref{sec:grammar}). BNF is a notation used to describe the grammar or syntax of computable languages. Finally, some practical examples are written with the help of the DSL to display its expressiveness (\autoref{sec:languageexamples}).
 
 
 % ------------------------------------------------------------------------------
@@ -21,9 +21,21 @@ The high-level concepts that can be created in the language are:
 
 \begin{itemize}
 \item \textbf{Property -} A property represents a temporal specification or a blend of temporal specifications between components.
+
+Ex. \textit{after robot.position.x > 1, never robot.velocity > 5}
+
 \item \textbf{Declaration -} A declaration allows for the representation of ROS \textit{topics} in order to interact with them.
+
+Ex. \textit{decl robot\_position /odom Odometry.pose.pose.position}
+
 \item \textbf{Model -} A model allows for the declaration of specific \textit{topics} that are required when correlating certain robots' and simulation components.
+
+Ex. \textit{model robot1: position /odom Odometry.pose.pose.position ;}
+
 \item \textbf{Association -} An association serves as a way to create program variables.
+
+Ex. \textit{property1 = always robot.velocity > 1}
+
 \end{itemize}
 
 
@@ -43,6 +55,7 @@ The language considers not only LTL basic operators but also some common shortcu
 \item {\bfseries after\_until X, Y, Z} - after the event X is observed, Z has to hold on the entire subsequent path up until Y happens. At that position, Z does not have to hold anymore;
 \end{itemize}
 
+\textit{Note: For the property ``after X, always Y'' the property ``always Y'' only has to hold after the first condition is met, this is what is meant by subsequent path.}
 
 % ------------------------------------------------------------------------------
 % Temporal value
@@ -51,9 +64,9 @@ The language considers not only LTL basic operators but also some common shortcu
 
 It is also possible to reference previous variable states:
 \begin{equation}
-@\{x, -y\}
+@\{X, -y\}
 \end{equation}
-This will represent the value of the variable X in the point in time -y.
+This will represent the value of the variable \textit{X} in the point in time \textit{-y}.
 
 
 % ------------------------------------------------------------------------------
@@ -87,7 +100,7 @@ Besides the already mentioned operands, \textit{Temporal values}, \textit{Simula
 \subsection{Operators}
 \label{ssec:operators}
 
-The DSL supports operators to correlate components. The operators are \textit{+} (addition), \textit{-} (subtraction), \textit{*} (multiplication), \textit{/} (division), \textit{==} (equals), \textit{!=} (different), \textit{>} (greater than), \textit{>=} (greater or equal than), \textit{<} (lower than), \textit{<=} (lower or equal than), \textit{and} (conjunction), \textit{or} (disjunction), \textit{implies} (implication), and for any comparison operator X \textit{X{y}} - the values being compared will have an error margin of y (Example: Z =={0.05} Y).
+The DSL supports operators to correlate components. The operators are \textit{+} (addition), \textit{-} (subtraction), \textit{*} (multiplication), \textit{/} (division), \textit{==} (equals), \textit{!=} (different), \textit{>} (greater than), \textit{>=} (greater or equal than), \textit{<} (lower than), \textit{<=} (lower or equal than), \textit{and} (conjunction), \textit{or} (disjunction), \textit{implies} (implication), and for any comparison operator \textit{A A\{y\}} - the values being compared will have an error margin of y, for instance (\textit{Z ==\{0.05\} Y}) is the similar to saying (\textit{Y-0.05 < Z < Y+0.05}) and (\textit{Z <\{0.05\} Y}) the same as (\textit{Z < Y+0.05}).
 
 
 % ------------------------------------------------------------------------------
@@ -97,7 +110,7 @@ The DSL supports operators to correlate components. The operators are \textit{+}
 
 Protected variables are variable names restricted to set determined monitoring parameters.
 
-\_rate\_ - Set the frame rate which properties are checked (By default, the rate is 30hz)
+\_rate\_ - Set the frame rate at which properties are checked (By default, the rate is 30hz)
 
 \_timeout\_ - Set the timeout for how long the verification will last (By default, the timeout is 100 seconds)
 
@@ -130,17 +143,17 @@ A set of specific topics can be modeled for the robot, like \textit{position} or
 model robot1:
     position /odom Odometry.pose.pose.position
     ;
-    never robot1.localization\_error > 0.002
+    never robot1.localization_error > 0.002
 \end{lstlisting}
 
-\textit{The localization\_error function requires the position topic of a robot to be modeled in order to compare it with the actual simulation position}
+\textit{The localization\_error function requires the position topic of a robot to be modeled in order to compare it with the actual simulation position.}
 
 % ------------------------------------------------------------------------------
 % Grammar
 \section{Grammar}
 \label{sec:grammar}
 
-The language grammar is written in BNF and is below presented.
+The language grammar is written in BNF and is presented below.
 
 The \textit{<association>} production highlights a basic notation of the language and is related to the high-level concepts of the DSL mentioned in \autoref{ssec:highlevelconcepts}.
 
